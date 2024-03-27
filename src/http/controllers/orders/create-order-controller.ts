@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { CreateOrderUseCase } from '../../use-cases/orders/create-order-use-case';
+import { CreateOrderUseCase } from '../../../use-cases/orders/create-order-use-case';
 
 export class CreateOrderController {
   async handle(request: Request, response: Response) {

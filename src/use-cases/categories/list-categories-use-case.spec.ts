@@ -1,7 +1,7 @@
 import { ListCategoriesUseCase } from './list-categories-use-case';
 
-import { ICategoriesRepository } from '@/app/repositories/categories-repository';
-import { InMemoryCategoriesRepository } from '@/app/repositories/in-memory/in-memory-categories-repository';
+import { ICategoriesRepository } from '@/repositories/categories-repository';
+import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 
 let inMemoryCategoriesRepository: ICategoriesRepository;
 let sut: ListCategoriesUseCase;

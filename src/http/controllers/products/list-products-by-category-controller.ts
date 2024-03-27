@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { ListProductsByCategoryUseCase } from '../../use-cases/products/list-products-by-category-use-case';
+import { ListProductsByCategoryUseCase } from '../../../use-cases/products/list-products-by-category-use-case';
 
 export class ListProductsByCategoryController {
   async handle(request: Request, response: Response) {

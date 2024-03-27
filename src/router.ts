@@ -3,15 +3,15 @@ import path from 'node:path';
 import { Router } from 'express';
 import multer from 'multer';
 
-import { CreateCategoryController } from './app/controllers/categories/create-category-controller';
-import { ListCategoriesController } from './app/controllers/categories/list-categories-controller';
-import { CancelOrderController } from './app/controllers/orders/cancel-order-controller';
-import { CreateOrderController } from './app/controllers/orders/create-order-controller';
-import { ListOrdersController } from './app/controllers/orders/list-orders-controller';
-import { UpdateOrderStatusController } from './app/controllers/orders/update-order-status-controller';
-import { CreateProductController } from './app/controllers/products/create-product-controller';
-import { ListProductsByCategoryController } from './app/controllers/products/list-products-by-category-controller';
-import { ListProductsController } from './app/controllers/products/list-products-controller';
+import { CreateCategoryController } from './http/controllers/categories/create-category-controller';
+import { ListCategoriesController } from './http/controllers/categories/list-categories-controller';
+import { CancelOrderController } from './http/controllers/orders/cancel-order-controller';
+import { CreateOrderController } from './http/controllers/orders/create-order-controller';
+import { ListOrdersController } from './http/controllers/orders/list-orders-controller';
+import { UpdateOrderStatusController } from './http/controllers/orders/update-order-status-controller';
+import { CreateProductController } from './http/controllers/products/create-product-controller';
+import { ListProductsByCategoryController } from './http/controllers/products/list-products-by-category-controller';
+import { ListProductsController } from './http/controllers/products/list-products-controller';
 
 export const router = Router();
 

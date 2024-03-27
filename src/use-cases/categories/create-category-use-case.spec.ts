@@ -1,6 +1,6 @@
 import { CreateCategoryUseCase } from './create-category-use-case';
 
-import { InMemoryCategoriesRepository } from '@/app/repositories/in-memory/in-memory-categories-repository';
+import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
 let sut: CreateCategoryUseCase;

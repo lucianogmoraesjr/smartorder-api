@@ -7,7 +7,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 
-import { AppError } from './app/errors/app-error';
+import { AppError } from './errors/app-error';
 import { router } from './router';
 
 const app = express();
@@ -15,8 +15,6 @@ app.use(cors());
 
 const server = http.createServer(app);
 export const io = new Server(server);
-
-console.log('teste');
 
 mongoose
   .connect('mongodb://localhost:27017')
