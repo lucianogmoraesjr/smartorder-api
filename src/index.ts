@@ -40,6 +40,8 @@ mongoose
             .json({ message: error.message });
         }
 
+        console.error(error);
+
         return response.sendStatus(500);
       },
     );

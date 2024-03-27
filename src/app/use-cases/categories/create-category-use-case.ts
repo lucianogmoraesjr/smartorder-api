@@ -1,15 +1,21 @@
 import { ICreateCategoryDTO } from '../../dtos/create-category-dto';
-import { CategoriesRepository } from '../../repositories/categories-repository';
+import { ICategoriesRepository } from '../../repositories/categories-repository';
+
+import { AppError } from '@/app/errors/app-error';
 
 export class CreateCategoryUseCase {
-  private categoriesRepository: CategoriesRepository;
+  constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  constructor() {
-    this.categoriesRepository = new CategoriesRepository();
-  }
+  async execute({ name, emoji }: ICreateCategoryDTO) {
+    if (!name) {
+      throw new AppError('Name is required.', 400);
+    }
 
-  async execute(data: ICreateCategoryDTO) {
-    const category = await this.categoriesRepository.create(data);
+    if (!emoji) {
+      throw new AppError('Emoji is required.', 400);
+    }
+
+    const category = await this.categoriesRepository.create({ name, emoji });
 
     return category;
   }

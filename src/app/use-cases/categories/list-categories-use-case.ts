@@ -1,4 +1,4 @@
-import { ICategoriesRepository } from '@/app/repositories/icategories-repository';
+import { ICategoriesRepository } from '@/app/repositories/categories-repository';
 
 export class ListCategoriesUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { Category, Prisma } from '@prisma/client';
 
-import { ICategoriesRepository } from '../icategories-repository';
+import { ICategoriesRepository } from '../categories-repository';
 
 export class InMemoryCategoriesRepository implements ICategoriesRepository {
   public categories: Category[] = [];
