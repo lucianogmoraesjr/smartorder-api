@@ -1,11 +1,7 @@
-import { CategoriesRepository } from '../../repositories/categories-repository';
+import { ICategoriesRepository } from '@/app/repositories/icategories-repository';
 
 export class ListCategoriesUseCase {
-  private categoriesRepository: CategoriesRepository;
-
-  constructor() {
-    this.categoriesRepository = new CategoriesRepository();
-  }
+  constructor(private categoriesRepository: ICategoriesRepository) {}
 
   async execute() {
     const categories = await this.categoriesRepository.findAll();
