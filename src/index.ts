@@ -16,6 +16,8 @@ app.use(cors());
 const server = http.createServer(app);
 export const io = new Server(server);
 
+console.log('teste');
+
 mongoose
   .connect('mongodb://localhost:27017')
   .then(() => {
