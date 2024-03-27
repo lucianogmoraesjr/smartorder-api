@@ -9,6 +9,7 @@
     "start": "node dist",
     "prepare": "husky",
     "test": "vitest run",
+    "test:e2e": "vitest run --config ./vitest.config.e2e.mts",
     "studio": "prisma studio"
   },
   "keywords": [],
