@@ -1,23 +1,14 @@
 import { Request, Response } from 'express';
 
-import { AppError } from '../../errors/app-error';
-import { CreateCategoryUseCase } from '../../use-cases/categories/create-category-use-case';
+import { makeCreateCategoryUseCase } from '@/app/use-cases/categories/factories/make-create-category-use-case';
 
 export class CreateCategoryController {
   async handle(request: Request, response: Response) {
-    const { name, icon } = request.body;
+    const { name, emoji } = request.body;
 
-    if (!name) {
-      throw new AppError('Name is required');
-    }
+    const createCategoryUseCase = makeCreateCategoryUseCase();
 
-    if (!icon) {
-      throw new AppError('Icon is required');
-    }
-
-    const createCategoryUseCase = new CreateCategoryUseCase();
-
-    const category = await createCategoryUseCase.execute({ name, icon });
+    const category = await createCategoryUseCase.execute({ name, emoji });
 
     return response.status(201).json(category);
   }

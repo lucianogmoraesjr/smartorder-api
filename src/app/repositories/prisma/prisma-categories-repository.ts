@@ -1,6 +1,6 @@
 import { Category, Prisma } from '@prisma/client';
 
-import { ICategoriesRepository } from '../icategories-repository';
+import { ICategoriesRepository } from '../categories-repository';
 
 import { prisma } from '@/app/lib/prisma';
 

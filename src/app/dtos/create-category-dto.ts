@@ -1,4 +1,4 @@
 export interface ICreateCategoryDTO {
   name: string;
-  icon: string;
+  emoji: string;
 }
