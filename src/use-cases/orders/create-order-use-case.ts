@@ -1,6 +1,7 @@
-import { io } from '../../';
 import { ICreateOrderDTO } from '../../dtos/create-order-dto';
 import { OrdersRepository } from '../../repositories/orders-repository';
+
+import { io } from '@/app';
 
 export class CreateOrderUseCase {
   private ordersRepository: OrdersRepository;
