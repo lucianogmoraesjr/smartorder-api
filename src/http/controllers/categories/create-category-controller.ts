@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { makeCreateCategoryUseCase } from '@/app/use-cases/categories/factories/make-create-category-use-case';
+import { makeCreateCategoryUseCase } from '@/use-cases/categories/factories/make-create-category-use-case';
 
 export class CreateCategoryController {
   async handle(request: Request, response: Response) {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { CancelOrderUseCase } from '../../use-cases/orders/cancel-order-use-case';
+import { CancelOrderUseCase } from '../../../use-cases/orders/cancel-order-use-case';
 
 export class CancelOrderController {
   async handle(request: Request, response: Response) {

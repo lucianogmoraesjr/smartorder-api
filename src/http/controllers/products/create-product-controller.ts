@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { CreateProductUseCase } from '../../use-cases/products/create-product-use-case';
+import { CreateProductUseCase } from '../../../use-cases/products/create-product-use-case';
 
 export class CreateProductController {
   async handle(request: Request, response: Response) {

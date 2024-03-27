@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { UpdateOrderStatusUseCase } from '../../use-cases/orders/update-order-status-use-case';
+import { UpdateOrderStatusUseCase } from '../../../use-cases/orders/update-order-status-use-case';
 
 export class UpdateOrderStatusController {
   async handle(request: Request, response: Response) {
