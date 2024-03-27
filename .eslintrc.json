@@ -27,6 +27,7 @@
         "argsIgnorePattern": "next"
       }
     ],
+    "import/no-unresolved": "off",
     "import/order": [
       "error",
       {
