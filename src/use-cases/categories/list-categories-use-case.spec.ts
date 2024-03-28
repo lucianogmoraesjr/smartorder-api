@@ -1,3 +1,5 @@
+import { makeCategory } from 'test/factories/make-category';
+
 import { ListCategoriesUseCase } from './list-categories-use-case';
 
 import { ICategoriesRepository } from '@/repositories/categories-repository';
@@ -13,20 +15,16 @@ describe('List Categories Use Case', () => {
   });
 
   it('should be able to list all categories', async () => {
-    await inMemoryCategoriesRepository.create({
-      name: 'Pizzas',
-      emoji: '🍕',
-    });
+    await inMemoryCategoriesRepository.create(
+      makeCategory({
+        name: 'Pizzas',
+        emoji: '🍕',
+      }),
+    );
 
-    await inMemoryCategoriesRepository.create({
-      name: 'Burgers',
-      emoji: '🍔',
-    });
+    await inMemoryCategoriesRepository.create(makeCategory());
 
-    await inMemoryCategoriesRepository.create({
-      name: 'Bebidas',
-      emoji: '🍻',
-    });
+    await inMemoryCategoriesRepository.create(makeCategory());
 
     const categories = await sut.execute();
 
