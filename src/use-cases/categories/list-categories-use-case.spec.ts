@@ -23,7 +23,6 @@ describe('List Categories Use Case', () => {
     );
 
     await inMemoryCategoriesRepository.create(makeCategory());
-
     await inMemoryCategoriesRepository.create(makeCategory());
 
     const categories = await sut.execute();
