@@ -29,9 +29,25 @@ export class PrismaProductsRepository implements IProductsRepository {
     return products;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  findAllByCategory(categoryId: string): Promise<Product[] | null> {
-    throw new Error('Method not implemented.');
+  async findAllByCategory(categoryId: string): Promise<Product[] | null> {
+    const products = await prisma.product.findMany({
+      where: {
+        categoryId,
+      },
+      include: {
+        ingredients: {
+          select: {
+            ingredient: true,
+          },
+        },
+      },
+    });
+
+    if (!products) {
+      return null;
+    }
+
+    return products;
   }
 
   async create(data: ICreateProductDTO): Promise<Product> {
