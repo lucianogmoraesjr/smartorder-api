@@ -5,7 +5,7 @@ import { Category } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
 
-export function makeCategory(override: Partial<Category>, id?: string) {
+export function makeCategory(override: Partial<Category> = {}, id?: string) {
   const category: Category = {
     id: id ?? randomUUID(),
     name: faker.commerce.department(),
