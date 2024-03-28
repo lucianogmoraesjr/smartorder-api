@@ -1,7 +1,9 @@
-import { Prisma, Product } from '@prisma/client';
+import { Product } from '@prisma/client';
+
+import { ICreateProductDTO } from '@/dtos/create-product-dto';
 
 export interface IProductsRepository {
   findAll(): Promise<Product[] | null>;
   findAllByCategory(categoryId: string): Promise<Product[] | null>;
-  create(data: Prisma.ProductUncheckedCreateInput): Promise<Product>;
+  create(data: ICreateProductDTO): Promise<Product>;
 }

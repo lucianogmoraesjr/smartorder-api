@@ -2,10 +2,9 @@ export interface ICreateProductDTO {
   name: string;
   description: string;
   imagePath: string;
-  price: number;
-  category: string;
+  priceInCents: number;
+  categoryId: string;
   ingredients: Array<{
-    name: string;
-    icon: string;
+    ingredientId: string;
   }>;
 }
