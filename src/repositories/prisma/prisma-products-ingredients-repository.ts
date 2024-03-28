@@ -1,11 +1,11 @@
 import { Prisma } from '@prisma/client';
 
-import { IProductsIngredients } from '../products-ingredients-repository';
+import { IProductsIngredientsRepository } from '../products-ingredients-repository';
 
 import { prisma } from '@/lib/prisma';
 
 export class PrismaProductsIngredientsRepository
-  implements IProductsIngredients
+  implements IProductsIngredientsRepository
 {
   async create(
     data: Prisma.ProductsIngredientsUncheckedCreateInput,
