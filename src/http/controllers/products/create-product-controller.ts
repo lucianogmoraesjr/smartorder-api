@@ -1,21 +1,22 @@
 import { Request, Response } from 'express';
 
-import { CreateProductUseCase } from '../../../use-cases/products/create-product-use-case';
+import { makeCreateProductUseCase } from '@/use-cases/products/factories/make-create-product-use-case';
 
 export class CreateProductController {
   async handle(request: Request, response: Response) {
     const imagePath = request.file?.filename;
-    const { name, description, price, ingredients, category } = request.body;
+    const { name, description, priceInCents, ingredients, categoryId } =
+      request.body;
 
-    const createProductUseCase = new CreateProductUseCase();
+    const createProductUseCase = makeCreateProductUseCase();
 
     const product = await createProductUseCase.execute({
       name,
       description,
-      price: Number(price),
-      ingredients: ingredients ? JSON.parse(ingredients) : [],
+      priceInCents: Number(priceInCents),
       imagePath: imagePath || '',
-      category,
+      categoryId,
+      ingredients: JSON.parse(ingredients) || '',
     });
 
     return response.status(201).json(product);
