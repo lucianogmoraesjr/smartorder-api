@@ -1,11 +1,7 @@
-import { ProductsRepository } from '../../repositories/products-repository';
+import { IProductsRepository } from '@/repositories/iproducts-repository';
 
 export class ListProductsByCategoryUseCase {
-  private productsRepository: ProductsRepository;
-
-  constructor() {
-    this.productsRepository = new ProductsRepository();
-  }
+  constructor(private productsRepository: IProductsRepository) {}
 
   async execute(categoryId: string) {
     const products =
