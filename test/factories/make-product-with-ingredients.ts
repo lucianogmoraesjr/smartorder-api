@@ -3,7 +3,9 @@ import { randomUUID } from 'node:crypto';
 import { faker } from '@faker-js/faker';
 import { Product } from '@prisma/client';
 
-import { makeIngredient } from './make-ingredient';
+import { makePrismaCategory } from './make-category';
+import { makeIngredient, makePrismaIngredient } from './make-ingredient';
+import { makeProduct } from './make-product';
 
 import { prisma } from '@/lib/prisma';
 
@@ -32,22 +34,34 @@ export function makeProductWithIngredients(
   return { ...product, ingredients };
 }
 
-export async function makePrismaProduct(
+export async function makePrismaProductWithIngredients(
   data: Partial<Product> = {},
 ): Promise<Product> {
-  const product = makeProductWithIngredients(data);
+  const category = await makePrismaCategory();
 
-  await prisma.product.create({
+  const newProduct = makeProduct(data);
+
+  const ingredients = [];
+
+  for (let i = 0; i < 3; i++) {
+    const ingredient = await makePrismaIngredient();
+
+    ingredients.push({
+      ingredientId: ingredient.id,
+    });
+  }
+
+  const product = await prisma.product.create({
     data: {
-      name: product.name,
-      description: product.description,
-      priceInCents: product.priceInCents,
-      imagePath: product.imagePath,
-      categoryId: product.categoryId,
+      name: newProduct.name,
+      description: newProduct.description,
+      priceInCents: newProduct.priceInCents,
+      imagePath: newProduct.imagePath,
+      categoryId: category.id,
     },
   });
 
-  const productsIngredients = product.ingredients.map(ingredient => {
+  const productsIngredients = ingredients.map(ingredient => {
     return {
       ingredientId: ingredient.ingredientId,
       productId: product.id,
