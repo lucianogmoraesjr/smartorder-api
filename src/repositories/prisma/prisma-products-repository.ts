@@ -1,16 +1,32 @@
 import { Product } from '@prisma/client';
 
 import { IProductsRepository } from '../iproducts-repository';
-import { IProductsIngredients } from '../products-ingredients-repository';
+import { IProductsIngredientsRepository } from '../products-ingredients-repository';
 
 import { ICreateProductDTO } from '@/dtos/create-product-dto';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaProductsRepository implements IProductsRepository {
-  constructor(private productsIngredientsRepository: IProductsIngredients) {}
+  constructor(
+    private productsIngredientsRepository: IProductsIngredientsRepository,
+  ) {}
 
-  findAll(): Promise<Product[] | null> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Product[] | null> {
+    const products = await prisma.product.findMany({
+      include: {
+        ingredients: {
+          select: {
+            ingredient: true,
+          },
+        },
+      },
+    });
+
+    if (!products) {
+      return null;
+    }
+
+    return products;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

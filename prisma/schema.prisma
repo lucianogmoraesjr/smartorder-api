@@ -44,8 +44,8 @@ model ProductsIngredients {
   productId    String @map("product_id")
   ingredientId String @map("ingredient_id")
 
-  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
-  product    Product    @relation(fields: [productId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  product    Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("products_ingredients")
 }
