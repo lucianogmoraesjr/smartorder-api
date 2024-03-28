@@ -1,13 +1,11 @@
 import request from 'supertest';
+import { makePrismaCategory } from 'test/factories/make-category';
 
 import { app } from '@/app';
 
 describe('List Categories (E2E)', () => {
   test('[GET] /categories', async () => {
-    await request(app).post('/categories').send({
-      name: 'Burgers',
-      emoji: '🍔',
-    });
+    await makePrismaCategory({ name: 'Burgers' });
 
     const response = await request(app).get('/categories');
 
@@ -16,7 +14,6 @@ describe('List Categories (E2E)', () => {
       expect.arrayContaining([
         expect.objectContaining({
           name: 'Burgers',
-          emoji: '🍔',
         }),
       ]),
     );
