@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import { faker } from '@faker-js/faker';
-import { Product } from '@prisma/client';
+import { Category, Product } from '@prisma/client';
 
 import { makePrismaCategory } from './make-category';
 import { makeIngredient, makePrismaIngredient } from './make-ingredient';
@@ -45,10 +45,18 @@ export function makeProductWithIngredients(
   return product;
 }
 
-export async function makePrismaProductWithIngredients(): Promise<Product> {
-  const category = await makePrismaCategory();
+export async function makePrismaProductWithIngredients(
+  category?: Category,
+): Promise<Product> {
+  let newCategory: Category;
 
-  const newProduct = makeProduct({ categoryId: category.id });
+  if (!category) {
+    newCategory = await makePrismaCategory();
+  } else {
+    newCategory = category;
+  }
+
+  const newProduct = makeProduct({ categoryId: newCategory.id });
 
   const ingredients = [];
 
