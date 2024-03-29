@@ -19,7 +19,9 @@ export function makeProductWithIngredients(
     description: faker.commerce.productDescription(),
     categoryId: randomUUID(),
     imagePath: faker.internet.url(),
-    priceInCents: Number(faker.finance.amount({ min: 10, max: 50, dec: 0 })),
+    priceInCents: Number(
+      faker.finance.amount({ min: 1000, max: 5000, dec: 0 }),
+    ),
     ...override,
   };
 
@@ -58,17 +60,25 @@ export async function makePrismaProductWithIngredients(
       priceInCents: newProduct.priceInCents,
       imagePath: newProduct.imagePath,
       categoryId: category.id,
+      ingredients: {
+        create: ingredients.map(ingredient => ({
+          ingredientId: ingredient.ingredientId,
+        })),
+      },
+    },
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      ingredients: {
+        select: {
+          ingredient: true,
+        },
+      },
     },
   });
-
-  const productsIngredients = ingredients.map(ingredient => {
-    return {
-      ingredientId: ingredient.ingredientId,
-      productId: product.id,
-    };
-  });
-
-  await prisma.productsIngredients.createMany({ data: productsIngredients });
 
   return product;
 }

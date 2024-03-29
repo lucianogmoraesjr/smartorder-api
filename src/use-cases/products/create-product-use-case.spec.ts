@@ -1,13 +1,14 @@
+import { makeCategory } from 'test/factories/make-category';
+import { makeProduct } from 'test/factories/make-product';
+
 import { CreateProductUseCase } from './create-product-use-case';
 
 import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 import { InMemoryIngredientsRepository } from '@/repositories/in-memory/in-memory-ingredients-repository';
-import { InMemoryProductsIngredientsRepository } from '@/repositories/in-memory/in-memory-products-ingredients-repository';
 import { InMemoryProductsRepository } from '@/repositories/in-memory/in-memory-products-repository';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
 let inMemoryIngredientsRepository: InMemoryIngredientsRepository;
-let inMemoryProductsIngredientsRepository: InMemoryProductsIngredientsRepository;
 let inMemoryProductsRepository: InMemoryProductsRepository;
 let sut: CreateProductUseCase;
 
@@ -15,11 +16,7 @@ describe('Create Product Use Case', () => {
   beforeEach(async () => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
     inMemoryIngredientsRepository = new InMemoryIngredientsRepository();
-    inMemoryProductsIngredientsRepository =
-      new InMemoryProductsIngredientsRepository();
-    inMemoryProductsRepository = new InMemoryProductsRepository(
-      inMemoryProductsIngredientsRepository,
-    );
+    inMemoryProductsRepository = new InMemoryProductsRepository();
     sut = new CreateProductUseCase(inMemoryProductsRepository);
   });
 
@@ -62,6 +59,22 @@ describe('Create Product Use Case', () => {
         },
       ],
     });
+
+    expect(inMemoryProductsRepository.products).toHaveLength(1);
+    expect(inMemoryProductsRepository.products[0]).toEqual(product);
+    expect(inMemoryProductsRepository.products[0].ingredients).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          ingredientId: ingredient1.id,
+        }),
+      ]),
+    );
+  });
+
+  it('should be able to create a product without ingredients', async () => {
+    const category = makeCategory();
+
+    const product = await sut.execute(makeProduct({ categoryId: category.id }));
 
     expect(inMemoryProductsRepository.products).toHaveLength(1);
     expect(inMemoryProductsRepository.products[0]).toEqual(product);

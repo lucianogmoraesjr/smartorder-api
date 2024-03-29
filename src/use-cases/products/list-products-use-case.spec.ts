@@ -2,20 +2,14 @@ import { makeProductWithIngredients } from 'test/factories/make-product-with-ing
 
 import { ListProductsUseCase } from './list-products-use-case';
 
-import { InMemoryProductsIngredientsRepository } from '@/repositories/in-memory/in-memory-products-ingredients-repository';
 import { InMemoryProductsRepository } from '@/repositories/in-memory/in-memory-products-repository';
 
-let inMemoryProductsIngredientsRepository: InMemoryProductsIngredientsRepository;
 let inMemoryProductsRepository: InMemoryProductsRepository;
 let sut: ListProductsUseCase;
 
 describe('List Products Use Case', () => {
   beforeEach(async () => {
-    inMemoryProductsIngredientsRepository =
-      new InMemoryProductsIngredientsRepository();
-    inMemoryProductsRepository = new InMemoryProductsRepository(
-      inMemoryProductsIngredientsRepository,
-    );
+    inMemoryProductsRepository = new InMemoryProductsRepository();
     sut = new ListProductsUseCase(inMemoryProductsRepository);
   });
 
@@ -26,13 +20,8 @@ describe('List Products Use Case', () => {
 
     const products = await sut.execute();
 
+    console.log(product);
+
     expect(products).toHaveLength(1);
-    expect(
-      inMemoryProductsIngredientsRepository.productsIngredients[0],
-    ).toEqual(
-      expect.objectContaining({
-        productId: product.id,
-      }),
-    );
   });
 });

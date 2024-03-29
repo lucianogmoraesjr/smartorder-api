@@ -4,7 +4,7 @@ export interface ICreateProductDTO {
   imagePath: string;
   priceInCents: number;
   categoryId: string;
-  ingredients: Array<{
+  ingredients?: Array<{
     ingredientId: string;
   }>;
 }
