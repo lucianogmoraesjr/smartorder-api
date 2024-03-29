@@ -10,13 +10,16 @@ export class CreateProductController {
 
     const createProductUseCase = makeCreateProductUseCase();
 
+    const parsedIngredients =
+      typeof ingredients === 'string' ? JSON.parse(ingredients) : ingredients;
+
     const product = await createProductUseCase.execute({
       name,
       description,
       priceInCents: Number(priceInCents),
       imagePath: imagePath || '',
       categoryId,
-      ingredients: ingredients || [],
+      ingredients: parsedIngredients || [],
     });
 
     return response.status(201).json(product);
