@@ -2,12 +2,10 @@ import { ListProductsByCategoryUseCase } from './list-products-by-category-use-c
 
 import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 import { InMemoryIngredientsRepository } from '@/repositories/in-memory/in-memory-ingredients-repository';
-import { InMemoryProductsIngredientsRepository } from '@/repositories/in-memory/in-memory-products-ingredients-repository';
 import { InMemoryProductsRepository } from '@/repositories/in-memory/in-memory-products-repository';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
 let inMemoryIngredientsRepository: InMemoryIngredientsRepository;
-let inMemoryProductsIngredientsRepository: InMemoryProductsIngredientsRepository;
 let inMemoryProductsRepository: InMemoryProductsRepository;
 let sut: ListProductsByCategoryUseCase;
 
@@ -15,11 +13,7 @@ describe('List Products By Category Use Case', () => {
   beforeEach(async () => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
     inMemoryIngredientsRepository = new InMemoryIngredientsRepository();
-    inMemoryProductsIngredientsRepository =
-      new InMemoryProductsIngredientsRepository();
-    inMemoryProductsRepository = new InMemoryProductsRepository(
-      inMemoryProductsIngredientsRepository,
-    );
+    inMemoryProductsRepository = new InMemoryProductsRepository();
     sut = new ListProductsByCategoryUseCase(inMemoryProductsRepository);
   });
 

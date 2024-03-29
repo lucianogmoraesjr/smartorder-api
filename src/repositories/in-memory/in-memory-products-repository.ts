@@ -3,16 +3,17 @@ import { randomUUID } from 'node:crypto';
 import { Product } from '@prisma/client';
 
 import { IProductsRepository } from '../iproducts-repository';
-import { IProductsIngredientsRepository } from '../products-ingredients-repository';
 
 import { ICreateProductDTO } from '@/dtos/create-product-dto';
 
-export class InMemoryProductsRepository implements IProductsRepository {
-  public products: Product[] = [];
+type InMemoryProduct = Product & {
+  ingredients?: Array<{
+    ingredientId: string;
+  }>;
+};
 
-  constructor(
-    private productsIngredientsRepository: IProductsIngredientsRepository,
-  ) {}
+export class InMemoryProductsRepository implements IProductsRepository {
+  public products: InMemoryProduct[] = [];
 
   async findAll(): Promise<Product[] | null> {
     return this.products;
@@ -23,25 +24,17 @@ export class InMemoryProductsRepository implements IProductsRepository {
   }
 
   async create(data: ICreateProductDTO): Promise<Product> {
-    const product = {
+    const product: InMemoryProduct = {
       id: randomUUID(),
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
       imagePath: data.imagePath,
       categoryId: data.categoryId,
+      ingredients: data.ingredients,
     };
 
     this.products.push(product);
-
-    const ingredients = data.ingredients.map(ingredient => {
-      return {
-        ingredientId: ingredient.ingredientId,
-        productId: product.id,
-      };
-    });
-
-    this.productsIngredientsRepository.createMany(ingredients);
 
     return product;
   }
