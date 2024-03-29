@@ -53,7 +53,7 @@ export class PrismaProductsRepository implements IProductsRepository {
         priceInCents: data.priceInCents,
         imagePath: data.imagePath,
         categoryId: data.categoryId,
-        ingredients: {
+        ingredients: data.ingredients && {
           create: data.ingredients.map(ingredient => ({
             ingredient: {
               connect: { id: ingredient.ingredientId },

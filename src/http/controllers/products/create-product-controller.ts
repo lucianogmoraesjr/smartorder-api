@@ -16,7 +16,7 @@ export class CreateProductController {
       priceInCents: Number(priceInCents),
       imagePath: imagePath || '',
       categoryId,
-      ingredients: JSON.parse(ingredients) || '',
+      ingredients: ingredients || [],
     });
 
     return response.status(201).json(product);
