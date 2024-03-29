@@ -9,11 +9,17 @@ import { makeProduct } from './make-product';
 
 import { prisma } from '@/lib/prisma';
 
+type ProductWithIngredients = Product & {
+  ingredients?: Array<{
+    ingredientId: string;
+  }>;
+};
+
 export function makeProductWithIngredients(
-  override: Partial<Product> = {},
+  override: Partial<ProductWithIngredients> = {},
   id?: string,
 ) {
-  const product: Product = {
+  const product: ProductWithIngredients = {
     id: id ?? randomUUID(),
     name: faker.commerce.product(),
     description: faker.commerce.productDescription(),
@@ -22,26 +28,27 @@ export function makeProductWithIngredients(
     priceInCents: Number(
       faker.finance.amount({ min: 1000, max: 5000, dec: 0 }),
     ),
+    ingredients: [
+      {
+        ingredientId: makeIngredient().id,
+      },
+      {
+        ingredientId: makeIngredient().id,
+      },
+      {
+        ingredientId: makeIngredient().id,
+      },
+    ],
     ...override,
   };
 
-  const ingredients = [];
-
-  for (let i = 0; i < 3; i++) {
-    ingredients.push({
-      ingredientId: makeIngredient().id,
-    });
-  }
-
-  return { ...product, ingredients };
+  return product;
 }
 
-export async function makePrismaProductWithIngredients(
-  data: Partial<Product> = {},
-): Promise<Product> {
+export async function makePrismaProductWithIngredients(): Promise<Product> {
   const category = await makePrismaCategory();
 
-  const newProduct = makeProduct(data);
+  const newProduct = makeProduct({ categoryId: category.id });
 
   const ingredients = [];
 
@@ -59,22 +66,24 @@ export async function makePrismaProductWithIngredients(
       description: newProduct.description,
       priceInCents: newProduct.priceInCents,
       imagePath: newProduct.imagePath,
-      categoryId: category.id,
+      categoryId: newProduct.categoryId,
       ingredients: {
         create: ingredients.map(ingredient => ({
-          ingredientId: ingredient.ingredientId,
+          ingredient: {
+            connect: { id: ingredient.ingredientId },
+          },
         })),
       },
     },
     include: {
-      category: {
-        select: {
-          name: true,
-        },
-      },
       ingredients: {
         select: {
           ingredient: true,
+        },
+      },
+      category: {
+        select: {
+          name: true,
         },
       },
     },

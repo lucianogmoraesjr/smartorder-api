@@ -14,13 +14,9 @@ describe('List Products Use Case', () => {
   });
 
   it('should be able to list all products', async () => {
-    const product = await inMemoryProductsRepository.create(
-      makeProductWithIngredients(),
-    );
+    await inMemoryProductsRepository.create(makeProductWithIngredients());
 
     const products = await sut.execute();
-
-    console.log(product);
 
     expect(products).toHaveLength(1);
   });
