@@ -6,9 +6,16 @@ import { ICreateOrderDTO } from '@/dtos/create-order-dto';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaOrdersRepository implements IOrdersRepository {
-  findAll(): Promise<Order[] | null> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Order[] | null> {
+    const orders = await prisma.order.findMany();
+
+    if (!orders) {
+      return null;
+    }
+
+    return orders;
   }
+
   async create(data: ICreateOrderDTO): Promise<Order> {
     const order = await prisma.order.create({
       data: {

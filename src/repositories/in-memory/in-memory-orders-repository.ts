@@ -16,9 +16,10 @@ type InMemoryOrder = Order & {
 export class InMemoryOrdersRepository implements IOrdersRepository {
   public orders: InMemoryOrder[] = [];
 
-  findAll(): Promise<Order[] | null> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Order[] | null> {
+    return this.orders;
   }
+
   async create(data: ICreateOrderDTO): Promise<Order> {
     const order: InMemoryOrder = {
       id: randomUUID(),
