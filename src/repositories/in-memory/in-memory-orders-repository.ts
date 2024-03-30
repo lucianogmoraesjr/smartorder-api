@@ -39,7 +39,9 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
 
     this.orders[orderIndex].status = data.status;
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    const orderIndex = this.orders.findIndex(order => order.id === id);
+
+    this.orders.splice(orderIndex, 1);
   }
 }
