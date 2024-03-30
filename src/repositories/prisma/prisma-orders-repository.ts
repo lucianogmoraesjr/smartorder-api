@@ -7,7 +7,16 @@ import { prisma } from '@/lib/prisma';
 
 export class PrismaOrdersRepository implements IOrdersRepository {
   async findAll(): Promise<Order[] | null> {
-    const orders = await prisma.order.findMany();
+    const orders = await prisma.order.findMany({
+      include: {
+        products: {
+          select: {
+            product: true,
+            quantity: true,
+          },
+        },
+      },
+    });
 
     if (!orders) {
       return null;
