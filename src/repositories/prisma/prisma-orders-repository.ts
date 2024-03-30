@@ -40,17 +40,8 @@ export class PrismaOrdersRepository implements IOrdersRepository {
 
     return order;
   }
+
   async updateStatus(data: IUpdateStatusRequest): Promise<void> {
-    const orderExists = prisma.order.findFirst({
-      where: {
-        id: data.id,
-      },
-    });
-
-    if (!orderExists) {
-      throw new Error('Order does not exists');
-    }
-
     await prisma.order.update({
       where: {
         id: data.id,
@@ -60,7 +51,12 @@ export class PrismaOrdersRepository implements IOrdersRepository {
       },
     });
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async delete(id: string): Promise<void> {
+    await prisma.order.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
