@@ -1,21 +1,15 @@
 import { ICreateOrderDTO } from '../../dtos/create-order-dto';
-import { OrdersRepository } from '../../repositories/orders-repository';
+import { IOrdersRepository } from '../../repositories/orders-repository';
 
 import { io } from '@/app';
 
 export class CreateOrderUseCase {
-  private ordersRepository: OrdersRepository;
-
-  constructor() {
-    this.ordersRepository = new OrdersRepository();
-  }
+  constructor(private ordersRepository: IOrdersRepository) {}
 
   async execute(data: ICreateOrderDTO) {
     const order = await this.ordersRepository.create(data);
 
-    const newOrder = await order.populate('products.product');
-
-    io.emit('orders@new', newOrder);
+    io.emit('orders@new', order);
 
     return order;
   }

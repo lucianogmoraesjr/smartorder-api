@@ -1,7 +1,7 @@
 export interface ICreateOrderDTO {
   table: number;
   products: Array<{
-    product: string;
+    productId: string;
     quantity: number;
   }>;
 }
