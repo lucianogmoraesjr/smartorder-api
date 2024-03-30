@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 
-import { $Enums, Order } from '@prisma/client';
+import { Order } from '@prisma/client';
 
-import { IOrdersRepository } from '../orders-repository';
+import { IOrdersRepository, IUpdateStatusRequest } from '../orders-repository';
 
 import { ICreateOrderDTO } from '@/dtos/create-order-dto';
 
@@ -34,8 +34,10 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
 
     return order;
   }
-  updateStatus(id: string, status: $Enums.OrderStatus): Promise<void> {
-    throw new Error('Method not implemented.');
+  async updateStatus(data: IUpdateStatusRequest): Promise<void> {
+    const orderIndex = this.orders.findIndex(order => order.id === data.id);
+
+    this.orders[orderIndex].status = data.status;
   }
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.');
