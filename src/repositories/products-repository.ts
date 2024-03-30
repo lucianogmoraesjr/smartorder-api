@@ -1,31 +1,9 @@
-import { ICreateProductDTO } from '../dtos/create-product-dto';
-import { Product } from '../models/product';
+import { Product } from '@prisma/client';
 
-export class ProductsRepository {
-  private database: typeof Product;
+import { ICreateProductDTO } from '@/dtos/create-product-dto';
 
-  constructor() {
-    this.database = Product;
-  }
-
-  async findAll() {
-    const products = await this.database.find();
-
-    return products;
-  }
-
-  async findAllByCategory(categoryId: string) {
-    const products = await this.database
-      .find()
-      .where('category')
-      .equals(categoryId);
-
-    return products;
-  }
-
-  async create(data: ICreateProductDTO) {
-    const product = await this.database.create(data);
-
-    return product;
-  }
+export interface IProductsRepository {
+  findAll(): Promise<Product[] | null>;
+  findAllByCategory(categoryId: string): Promise<Product[] | null>;
+  create(data: ICreateProductDTO): Promise<Product>;
 }

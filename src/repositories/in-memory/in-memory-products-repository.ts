@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { Product } from '@prisma/client';
 
-import { IProductsRepository } from '../iproducts-repository';
+import { IProductsRepository } from '../products-repository';
 
 import { ICreateProductDTO } from '@/dtos/create-product-dto';
 

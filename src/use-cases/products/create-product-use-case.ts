@@ -1,5 +1,5 @@
 import { ICreateProductDTO } from '@/dtos/create-product-dto';
-import { IProductsRepository } from '@/repositories/iproducts-repository';
+import { IProductsRepository } from '@/repositories/products-repository';
 
 export class CreateProductUseCase {
   constructor(private productsRepository: IProductsRepository) {}

@@ -1,4 +1,4 @@
-import { IProductsRepository } from '@/repositories/iproducts-repository';
+import { IProductsRepository } from '@/repositories/products-repository';
 
 export class ListProductsUseCase {
   constructor(private productsRepository: IProductsRepository) {}
