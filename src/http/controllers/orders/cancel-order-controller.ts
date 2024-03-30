@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-import { CancelOrderUseCase } from '../../../use-cases/orders/cancel-order-use-case';
+import { makeCancelOrderUseCase } from '@/use-cases/orders/factories/make-cancel-order-use-case';
 
 export class CancelOrderController {
   async handle(request: Request, response: Response) {
     const { orderId } = request.params;
 
-    const cancelOrderUseCase = new CancelOrderUseCase();
+    const cancelOrderUseCase = makeCancelOrderUseCase();
 
     await cancelOrderUseCase.execute(orderId);
 
