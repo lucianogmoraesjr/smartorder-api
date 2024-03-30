@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 
-import { ListOrdersUseCase } from '../../../use-cases/orders/list-orders-use-case';
+import { makeListOrdersUseCase } from '@/use-cases/orders/factories/make-list-orders-use-case';
 
 export class ListOrdersController {
   async handle(request: Request, response: Response) {
-    const listOrdersUseCase = new ListOrdersUseCase();
+    const listOrdersUseCase = makeListOrdersUseCase();
 
     const categories = await listOrdersUseCase.execute();
 
