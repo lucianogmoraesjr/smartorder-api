@@ -13,13 +13,20 @@ export class PrismaOrdersRepository implements IOrdersRepository {
     const order = await prisma.order.create({
       data: {
         table: data.table,
-        orderProducts: {
+        products: {
           create: data.products.map(product => ({
             quantity: product.quantity,
             product: {
               connect: { id: product.productId },
             },
           })),
+        },
+      },
+      include: {
+        products: {
+          select: {
+            product: true,
+          },
         },
       },
     });

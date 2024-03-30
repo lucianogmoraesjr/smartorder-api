@@ -58,12 +58,12 @@ model ProductsIngredients {
 }
 
 model Order {
-  id            String          @id @default(cuid())
-  table         Int
-  status        OrderStatus     @default(WAITING)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  orderProducts OrderProducts[]
+  id        String          @id @default(cuid())
+  table     Int
+  status    OrderStatus     @default(WAITING)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  products  OrderProducts[]
 
   @@map("orders")
 }
