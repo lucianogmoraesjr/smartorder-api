@@ -40,11 +40,7 @@ export class PrismaProductsRepository implements IProductsRepository {
             ingredient: true,
           },
         },
-        category: {
-          select: {
-            name: true,
-          },
-        },
+        category: true,
       },
     });
 
