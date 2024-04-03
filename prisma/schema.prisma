@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  WAITING
+  IN_PRODUCTION
+  DONE
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  emoji    String
+  products Product[]
+
+  @@map("categories")
+}
+
+model Ingredient {
+  id       String                @id @default(cuid())
+  name     String
+  emoji    String
+  products ProductsIngredients[]
+
+  @@map("ingredients")
+}
+
+model Product {
+  id            String                @id @default(cuid())
+  name          String
+  description   String
+  imagePath     String                @map("image_path")
+  priceInCents  Int                   @map("price_in_cents")
+  categoryId    String                @map("category_id")
+  ingredients   ProductsIngredients[]
+  orderProducts OrderProducts[]
+
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("products")
+}
+
+model ProductsIngredients {
+  id           String @id @default(cuid())
+  productId    String @map("product_id")
+  ingredientId String @map("ingredient_id")
+
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  product    Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("products_ingredients")
+}
+
+model Order {
+  id        String          @id @default(cuid())
+  table     Int
+  status    OrderStatus     @default(WAITING)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  products  OrderProducts[]
+
+  @@map("orders")
+}
+
+model OrderProducts {
+  id        String @id @default(cuid())
+  orderId   String @map("order_id")
+  productId String @map("product_id")
+  quantity  Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
