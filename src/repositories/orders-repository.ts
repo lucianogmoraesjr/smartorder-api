@@ -10,6 +10,6 @@ export interface IUpdateStatusRequest {
 export interface IOrdersRepository {
   findAll(): Promise<Order[] | null>;
   create(data: ICreateOrderDTO): Promise<Order>;
-  updateStatus(data: UpdateStatusRequest): Promise<void>;
+  updateStatus(data: IUpdateStatusRequest): Promise<void>;
   delete(id: string): Promise<void>;
 }
