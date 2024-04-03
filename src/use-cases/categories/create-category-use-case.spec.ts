@@ -1,5 +1,6 @@
 import { CreateCategoryUseCase } from './create-category-use-case';
 
+import { AppError } from '@/errors/app-error';
 import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
@@ -21,5 +22,19 @@ describe('Create Category Use Case', () => {
     expect(inMemoryCategoriesRepository.categories).toEqual(
       expect.arrayContaining([category]),
     );
+  });
+
+  it('should not be able to create a category if name already exists', async () => {
+    await inMemoryCategoriesRepository.create({
+      name: 'already-exists',
+      emoji: '🧪',
+    });
+
+    await expect(
+      sut.execute({
+        name: 'already-exists',
+        emoji: '🧪',
+      }),
+    ).rejects.toEqual(new AppError('Category already exists.'));
   });
 });
