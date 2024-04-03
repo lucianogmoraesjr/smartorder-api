@@ -11,8 +11,18 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
     return categories;
   }
 
-  findByName(): Promise<{ id: string; name: string; emoji: string } | null> {
-    throw new Error('Method not implemented.');
+  async findByName(name: string): Promise<Category | null> {
+    const category = await prisma.category.findUnique({
+      where: {
+        name,
+      },
+    });
+
+    if (!category) {
+      return null;
+    }
+
+    return category;
   }
 
   async create(data: Prisma.CategoryCreateInput): Promise<Category> {
