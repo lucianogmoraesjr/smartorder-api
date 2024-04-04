@@ -35,7 +35,7 @@ export class CreateProductController {
     const product = await createProductUseCase.execute({
       name,
       description,
-      priceInCents: Number(priceInCents),
+      priceInCents: priceInCents,
       imagePath: imagePath || '',
       categoryId,
       ingredients: parsedIngredients || [],
