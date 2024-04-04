@@ -1,21 +1,9 @@
-import path from 'node:path';
-
 import { Router } from 'express';
-import multer from 'multer';
 
 import { CreateProductController } from './create-product-controller';
 import { ListProductsController } from './list-products-controller';
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, callback) {
-      callback(null, path.resolve(__dirname, '..', 'tmp'));
-    },
-    filename(req, file, callback) {
-      callback(null, `${Date.now()}-${file.originalname}`);
-    },
-  }),
-});
+import { upload } from '@/config/upload';
 
 const productsRoutes = Router();
 
