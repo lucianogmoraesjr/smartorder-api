@@ -54,7 +54,6 @@ export async function makePrismaOrder(
   const product2 = await makePrismaProduct({ categoryId: category2.id });
 
   const order = makeOrder({
-    ...data,
     products: [
       {
         productId: product1.id,
@@ -65,6 +64,7 @@ export async function makePrismaOrder(
         quantity: 1,
       },
     ],
+    ...data,
   });
 
   const createdOrder = await prisma.order.create({

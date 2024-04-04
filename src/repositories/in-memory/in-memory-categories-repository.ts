@@ -11,6 +11,16 @@ export class InMemoryCategoriesRepository implements ICategoriesRepository {
     return this.categories;
   }
 
+  async findById(id: string): Promise<Category | null> {
+    const category = this.categories.find(category => category.id === id);
+
+    if (!category) {
+      return null;
+    }
+
+    return category;
+  }
+
   async findByName(name: string): Promise<Category | null> {
     const category = this.categories.find(category => category.name === name);
 
