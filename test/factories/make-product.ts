@@ -12,15 +12,18 @@ export function makeProduct(override: Partial<Product> = {}, id?: string) {
     description: faker.commerce.productDescription(),
     categoryId: randomUUID(),
     imagePath: faker.internet.url(),
-    priceInCents: Number(faker.finance.amount({ min: 10, max: 50, dec: 0 })),
+    priceInCents: Number(faker.commerce.price({ min: 700, max: 5000, dec: 0 })),
     ...override,
   };
 
   return product;
 }
 
+type PartialProduct = Partial<Omit<Product, 'categoryId'>> &
+  Pick<Product, 'categoryId'>;
+
 export async function makePrismaProduct(
-  data: Partial<Product> = {},
+  data: PartialProduct,
 ): Promise<Product> {
   const product = makeProduct(data);
 

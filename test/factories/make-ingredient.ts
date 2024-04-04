@@ -11,7 +11,7 @@ export function makeIngredient(
 ) {
   const ingredient: Ingredient = {
     id: id ?? randomUUID(),
-    name: faker.commerce.department(),
+    name: faker.commerce.productMaterial(),
     emoji: faker.internet.emoji(),
     ...override,
   };

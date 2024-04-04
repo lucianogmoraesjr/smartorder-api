@@ -16,7 +16,10 @@ describe('Create Product Use Case', () => {
   beforeEach(async () => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
     inMemoryProductsRepository = new InMemoryProductsRepository();
-    sut = new CreateProductUseCase(inMemoryProductsRepository);
+    sut = new CreateProductUseCase(
+      inMemoryProductsRepository,
+      inMemoryCategoriesRepository,
+    );
   });
 
   it('should be able to create a product', async () => {
@@ -38,7 +41,7 @@ describe('Create Product Use Case', () => {
   });
 
   it('should be able to create a product without ingredients', async () => {
-    const category = makeCategory();
+    const category = await inMemoryCategoriesRepository.create(makeCategory());
 
     const product = await sut.execute(makeProduct({ categoryId: category.id }));
 
@@ -54,5 +57,11 @@ describe('Create Product Use Case', () => {
     await expect(
       sut.execute(makeProduct({ name: 'product-already-exists' })),
     ).rejects.toEqual(new AppError('Product already exists'));
+  });
+
+  it('should not be able to create a product if category does not exists', async () => {
+    await expect(
+      sut.execute(makeProduct({ categoryId: 'category-does-not-exists' })),
+    ).rejects.toEqual(new AppError('Category does not exists'));
   });
 });
