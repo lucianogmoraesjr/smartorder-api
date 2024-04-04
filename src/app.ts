@@ -6,6 +6,7 @@ import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import { Server } from 'socket.io';
 import swaggerUI from 'swagger-ui-express';
+import { ZodError } from 'zod';
 
 import swaggerDocument from '../swagger.json';
 
@@ -29,6 +30,12 @@ app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({ message: error.message });
+    }
+
+    if (error instanceof ZodError) {
+      return response
+        .status(400)
+        .json({ message: 'Validation error', issues: error.format() });
     }
 
     console.error(error);
