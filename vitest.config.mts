@@ -8,5 +8,8 @@ export default defineConfig({
     environmentMatchGlobs: [
       ['src/http/controllers/**', './prisma/vitest-environment-prisma.ts'],
     ],
+    coverage: {
+      include: ['src/http/controllers', 'src/use-cases'],
+    },
   },
 });

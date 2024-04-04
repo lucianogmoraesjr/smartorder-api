@@ -15,8 +15,8 @@ describe('List Orders (E2E)', () => {
     });
 
     const [product1, product2] = await Promise.all([
-      makePrismaProduct({ categoryId: category1.id }),
-      makePrismaProduct({ categoryId: category2.id }),
+      makePrismaProduct({ name: 'product-1', categoryId: category1.id }),
+      makePrismaProduct({ name: 'product-2', categoryId: category2.id }),
     ]);
 
     await Promise.all([

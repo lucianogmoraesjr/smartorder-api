@@ -8,10 +8,10 @@ export class UpdateOrderStatusUseCase {
   constructor(private ordersRepository: IOrdersRepository) {}
 
   async execute(data: IUpdateStatusRequest) {
-    if (!['WAITING', 'IN_PRODUCTION', 'DONE'].includes(data.status)) {
-      throw new AppError(
-        'Status should be one of these: WAITING, IN_PRODUCTION, DONE.',
-      );
+    const orderExists = await this.ordersRepository.findById(data.id);
+
+    if (!orderExists) {
+      throw new AppError('Order not found', 404);
     }
 
     await this.ordersRepository.updateStatus(data);

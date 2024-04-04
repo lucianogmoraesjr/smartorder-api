@@ -7,7 +7,9 @@ import { app } from '@/app';
 
 describe('Create Product (E2E)', () => {
   test('[POST] /products', async () => {
-    const category = await makePrismaCategory();
+    const category = await makePrismaCategory({
+      name: 'category-1',
+    });
 
     const [ingredient1, ingredient2, ingredient3] = await Promise.all([
       makePrismaIngredient(),

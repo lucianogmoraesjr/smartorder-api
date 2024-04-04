@@ -20,7 +20,8 @@ export function makeProduct(override: Partial<Product> = {}, id?: string) {
 }
 
 type PartialProduct = Partial<Omit<Product, 'categoryId'>> &
-  Pick<Product, 'categoryId'>;
+  Pick<Product, 'categoryId'> &
+  Pick<Product, 'name'>;
 
 export async function makePrismaProduct(
   data: PartialProduct,
