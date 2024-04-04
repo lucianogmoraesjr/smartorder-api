@@ -3,8 +3,6 @@ import { randomUUID } from 'node:crypto';
 import { faker } from '@faker-js/faker';
 import { Product } from '@prisma/client';
 
-import { makePrismaCategory } from './make-category';
-
 import { prisma } from '@/lib/prisma';
 
 export function makeProduct(override: Partial<Product> = {}, id?: string) {
@@ -24,17 +22,7 @@ export function makeProduct(override: Partial<Product> = {}, id?: string) {
 export async function makePrismaProduct(
   data: Partial<Product> = {},
 ): Promise<Product> {
-  let categoryId;
-
-  if (data.categoryId) {
-    categoryId = data.categoryId;
-  } else {
-    const category = await makePrismaCategory();
-
-    categoryId = category.id;
-  }
-
-  const product = makeProduct({ ...data, categoryId });
+  const product = makeProduct(data);
 
   await prisma.product.create({
     data: product,
