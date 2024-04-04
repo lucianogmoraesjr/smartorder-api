@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
+import z from 'zod';
 
 import { makeCreateCategoryUseCase } from '@/use-cases/categories/factories/make-create-category-use-case';
 
 export class CreateCategoryController {
   async handle(request: Request, response: Response) {
-    const { name, emoji } = request.body;
+    const createCategorySchema = z.object({
+      name: z.string(),
+      emoji: z.string().emoji(),
+    });
+
+    const { name, emoji } = createCategorySchema.parse(request.body);
 
     const createCategoryUseCase = makeCreateCategoryUseCase();
 
