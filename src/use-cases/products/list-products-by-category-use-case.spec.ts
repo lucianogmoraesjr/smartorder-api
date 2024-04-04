@@ -1,5 +1,6 @@
 import { ListProductsByCategoryUseCase } from './list-products-by-category-use-case';
 
+import { AppError } from '@/errors/app-error';
 import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 import { InMemoryIngredientsRepository } from '@/repositories/in-memory/in-memory-ingredients-repository';
 import { InMemoryProductsRepository } from '@/repositories/in-memory/in-memory-products-repository';
@@ -14,7 +15,10 @@ describe('List Products By Category Use Case', () => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
     inMemoryIngredientsRepository = new InMemoryIngredientsRepository();
     inMemoryProductsRepository = new InMemoryProductsRepository();
-    sut = new ListProductsByCategoryUseCase(inMemoryProductsRepository);
+    sut = new ListProductsByCategoryUseCase(
+      inMemoryProductsRepository,
+      inMemoryCategoriesRepository,
+    );
   });
 
   it('should be able to list all products of a category', async () => {
@@ -95,5 +99,11 @@ describe('List Products By Category Use Case', () => {
 
     expect(products).toHaveLength(2);
     expect(products).toEqual(expect.arrayContaining([product1, product2]));
+  });
+
+  it('should not be able to list all products if category does not exists', async () => {
+    await expect(sut.execute('non-existing-category')).rejects.toEqual(
+      new AppError('Category not found', 404),
+    );
   });
 });
