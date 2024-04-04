@@ -1,11 +1,6 @@
 version: '3.7'
 
 services:
-  smartorder-mongo:
-    image: mongo
-    ports:
-      - '27017:27017'
-
   smartorder-postgres:
     image: bitnami/postgresql
     ports:
