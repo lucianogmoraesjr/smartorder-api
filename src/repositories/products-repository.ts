@@ -5,5 +5,6 @@ import { ICreateProductDTO } from '@/dtos/create-product-dto';
 export interface IProductsRepository {
   findAll(): Promise<Product[] | null>;
   findAllByCategory(categoryId: string): Promise<Product[] | null>;
+  findByName(name: string): Promise<Product | null>;
   create(data: ICreateProductDTO): Promise<Product>;
 }

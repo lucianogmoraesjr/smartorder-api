@@ -23,6 +23,16 @@ export class InMemoryProductsRepository implements IProductsRepository {
     return this.products.filter(product => product.categoryId === categoryId);
   }
 
+  async findByName(name: string): Promise<Product | null> {
+    const product = this.products.find(product => product.name === name);
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
+  }
+
   async create(data: ICreateProductDTO): Promise<Product> {
     const product: InMemoryProduct = {
       id: randomUUID(),

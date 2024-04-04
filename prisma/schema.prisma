@@ -33,7 +33,7 @@ model Ingredient {
 
 model Product {
   id            String                @id @default(cuid())
-  name          String
+  name          String                @unique
   description   String
   imagePath     String                @map("image_path")
   priceInCents  Int                   @map("price_in_cents")

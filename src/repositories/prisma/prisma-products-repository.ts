@@ -57,6 +57,20 @@ export class PrismaProductsRepository implements IProductsRepository {
     return products;
   }
 
+  async findByName(name: string): Promise<Product | null> {
+    const product = await prisma.product.findUnique({
+      where: {
+        name,
+      },
+    });
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
+  }
+
   async create(data: ICreateProductDTO): Promise<Product> {
     const product = await prisma.product.create({
       data: {
