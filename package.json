@@ -10,6 +10,7 @@
     "prepare": "husky",
     "test": "vitest run --dir src/use-cases",
     "test:e2e": "vitest run --dir src/http",
+    "test:cov": "vitest run --coverage",
     "studio": "prisma studio"
   },
   "keywords": [],

@@ -6,13 +6,17 @@ import { app } from '@/app';
 
 describe('Create Order (E2E)', () => {
   test('[POST] /orders', async () => {
-    const category = await makePrismaCategory();
+    const category = await makePrismaCategory({
+      name: 'category-1',
+    });
 
     const [product1, product2] = await Promise.all([
       makePrismaProduct({
+        name: 'product-1',
         categoryId: category.id,
       }),
       makePrismaProduct({
+        name: 'product-2',
         categoryId: category.id,
       }),
     ]);

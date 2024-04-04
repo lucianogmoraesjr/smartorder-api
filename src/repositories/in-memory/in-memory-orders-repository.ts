@@ -20,6 +20,16 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
     return this.orders;
   }
 
+  async findById(id: string): Promise<Order | null> {
+    const order = this.orders.find(order => order.id === id);
+
+    if (!order) {
+      return null;
+    }
+
+    return order;
+  }
+
   async create(data: ICreateOrderDTO): Promise<Order> {
     const order: InMemoryOrder = {
       id: randomUUID(),

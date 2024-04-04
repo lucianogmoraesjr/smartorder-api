@@ -3,8 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { faker } from '@faker-js/faker';
 import { Order } from '@prisma/client';
 
-import { makePrismaCategory } from './make-category';
-import { makePrismaProduct, makeProduct } from './make-product';
+import { makeProduct } from './make-product';
 
 import { prisma } from '@/lib/prisma';
 
@@ -44,28 +43,13 @@ export function makeOrder(
   return order;
 }
 
+type PartialOrderWithProducts = Partial<Omit<OrderWithProducts, 'products'>> &
+  Pick<OrderWithProducts, 'products'>;
+
 export async function makePrismaOrder(
-  data: Partial<OrderWithProducts> = {},
+  data: PartialOrderWithProducts,
 ): Promise<Order> {
-  const category1 = await makePrismaCategory();
-  const category2 = await makePrismaCategory();
-
-  const product1 = await makePrismaProduct({ categoryId: category1.id });
-  const product2 = await makePrismaProduct({ categoryId: category2.id });
-
-  const order = makeOrder({
-    products: [
-      {
-        productId: product1.id,
-        quantity: 2,
-      },
-      {
-        productId: product2.id,
-        quantity: 1,
-      },
-    ],
-    ...data,
-  });
+  const order = makeOrder(data);
 
   const createdOrder = await prisma.order.create({
     data: {

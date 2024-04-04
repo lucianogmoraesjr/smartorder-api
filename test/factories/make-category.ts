@@ -16,8 +16,10 @@ export function makeCategory(override: Partial<Category> = {}, id?: string) {
   return category;
 }
 
+type PartialCategory = Pick<Category, 'name'> & Partial<Omit<Category, 'name'>>;
+
 export async function makePrismaCategory(
-  data: Partial<Category> = {},
+  data: PartialCategory,
 ): Promise<Category> {
   const category = makeCategory(data);
 

@@ -25,6 +25,20 @@ export class PrismaOrdersRepository implements IOrdersRepository {
     return orders;
   }
 
+  async findById(id: string): Promise<Order | null> {
+    const order = await prisma.order.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!order) {
+      return null;
+    }
+
+    return order;
+  }
+
   async create(data: ICreateOrderDTO): Promise<Order> {
     const order = await prisma.order.create({
       data: {

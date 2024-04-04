@@ -6,18 +6,31 @@ import { app } from '@/app';
 
 describe('List Products By Category (E2E)', () => {
   test('[GET] /categories/:productId/products', async () => {
-    const category = await makePrismaCategory({
+    const category1 = await makePrismaCategory({
       name: 'Burgers',
     });
 
+    const category2 = await makePrismaCategory({
+      name: 'Pizzas',
+    });
+
     await Promise.all([
-      makePrismaProductWithIngredients(category),
-      makePrismaProductWithIngredients(category),
-      makePrismaProductWithIngredients(),
+      makePrismaProductWithIngredients({
+        category: category1,
+        name: 'product-1',
+      }),
+      makePrismaProductWithIngredients({
+        category: category1,
+        name: 'product-2',
+      }),
+      makePrismaProductWithIngredients({
+        category: category2,
+        name: 'product-3',
+      }),
     ]);
 
     const response = await request(app).get(
-      `/categories/${category.id}/products`,
+      `/categories/${category1.id}/products`,
     );
 
     expect(response.status).toBe(200);
