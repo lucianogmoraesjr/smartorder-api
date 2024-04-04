@@ -5,12 +5,12 @@ import { makeCreateCategoryUseCase } from '@/use-cases/categories/factories/make
 
 export class CreateCategoryController {
   async handle(request: Request, response: Response) {
-    const createCategorySchema = z.object({
+    const createCategoryBodySchema = z.object({
       name: z.string(),
       emoji: z.string().emoji(),
     });
 
-    const { name, emoji } = createCategorySchema.parse(request.body);
+    const { name, emoji } = createCategoryBodySchema.parse(request.body);
 
     const createCategoryUseCase = makeCreateCategoryUseCase();
 
