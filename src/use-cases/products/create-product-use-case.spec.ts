@@ -4,6 +4,7 @@ import { makeProductWithIngredients } from 'test/factories/make-product-with-ing
 
 import { CreateProductUseCase } from './create-product-use-case';
 
+import { AppError } from '@/errors/app-error';
 import { InMemoryCategoriesRepository } from '@/repositories/in-memory/in-memory-categories-repository';
 import { InMemoryProductsRepository } from '@/repositories/in-memory/in-memory-products-repository';
 
@@ -43,5 +44,15 @@ describe('Create Product Use Case', () => {
 
     expect(inMemoryProductsRepository.products).toHaveLength(1);
     expect(inMemoryProductsRepository.products[0]).toEqual(product);
+  });
+
+  it('should not be able to create a product if name already exists', async () => {
+    await inMemoryProductsRepository.create(
+      makeProduct({ name: 'product-already-exists' }),
+    );
+
+    await expect(
+      sut.execute(makeProduct({ name: 'product-already-exists' })),
+    ).rejects.toEqual(new AppError('Product already exists'));
   });
 });
