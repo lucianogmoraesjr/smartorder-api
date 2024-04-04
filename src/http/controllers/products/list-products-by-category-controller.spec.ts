@@ -26,11 +26,13 @@ describe('List Products By Category (E2E)', () => {
       expect.arrayContaining([
         expect.objectContaining({
           category: {
+            emoji: expect.any(String),
             name: 'Burgers',
           },
         }),
         expect.objectContaining({
           category: {
+            emoji: expect.any(String),
             name: 'Burgers',
           },
         }),
