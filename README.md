@@ -15,7 +15,7 @@ Here're some of the project's best features:
 *   WIP
 
 ### 🧭 API Endpoints
-| HTTP Verbs | Endpoints | Action |
+| Methods | Endpoints | Action |
 | --- | --- | --- |
 | `GET` | /docs | To access API Docs with Swagger |
 | `POST` | /products | To create a new product |
@@ -23,6 +23,10 @@ Here're some of the project's best features:
 | `GET` | /categories/:categoryId/products | To fetch all products by category |
 | `POST` | /categories | To create a new category |
 | `GET` | /categories | To fetch all categories |
+| `PUT` | /categories/:categoryId | To update a category |
+| `DELETE` | /categories/:categoryId | To delete a category |
+| `POST` | /ingredients | To create a new ingredient |
+| `GET` | /ingredients | To fetch all ingredients |
 | `POST` | /orders | To create a new order |
 | `GET` | /orders | To fetch all orders |
 | `PATCH` | /orders/:orderId | To update a order status |
