@@ -23,6 +23,18 @@ export class InMemoryIngredientsRepository implements IIngredientsRepository {
     return ingredient;
   }
 
+  async findByName(name: string): Promise<Ingredient | null> {
+    const ingredient = this.ingredients.find(
+      ingredient => ingredient.name === name,
+    );
+
+    if (!ingredient) {
+      return null;
+    }
+
+    return ingredient;
+  }
+
   async create(data: Prisma.IngredientCreateInput): Promise<Ingredient> {
     const ingredient: Ingredient = {
       id: data.id ?? randomUUID(),
