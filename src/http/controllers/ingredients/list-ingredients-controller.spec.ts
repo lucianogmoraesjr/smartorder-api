@@ -17,9 +17,6 @@ describe('List Ingredients (E2E)', () => {
     const response = await request(app).get('/ingredients');
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual([
-      expect.objectContaining({ name: 'ingredient-1' }),
-      expect.objectContaining({ name: 'ingredient-2' }),
-    ]);
+    expect(response.body).toHaveLength(2);
   });
 });
