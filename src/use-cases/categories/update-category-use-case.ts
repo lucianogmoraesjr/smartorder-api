@@ -18,10 +18,12 @@ export class UpdateCategoryUseCase {
       throw new AppError('Category not found', 404);
     }
 
-    await this.categoriesRepository.update({
+    const category = await this.categoriesRepository.update({
       id,
       name,
       emoji,
     });
+
+    return category;
   }
 }

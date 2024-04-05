@@ -4,15 +4,20 @@ import { ListProductsByCategoryController } from '../products/list-products-by-c
 
 import { CreateCategoryController } from './create-category-controller';
 import { ListCategoriesController } from './list-categories-controller';
+import { UpdateCategoryController } from './update-category-controller';
 
 const categoriesRoutes = Router();
 
 const createCategoryController = new CreateCategoryController();
 const listCategoriesController = new ListCategoriesController();
+const updateCategoryController = new UpdateCategoryController();
+
 const listProductsByCategoryController = new ListProductsByCategoryController();
 
 categoriesRoutes.post('/', createCategoryController.handle);
 categoriesRoutes.get('/', listCategoriesController.handle);
+categoriesRoutes.put('/:categoryId', updateCategoryController.handle);
+
 categoriesRoutes.get(
   '/:categoryId/products',
   listProductsByCategoryController.handle,

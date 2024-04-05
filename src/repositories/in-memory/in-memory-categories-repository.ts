@@ -2,10 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { Category, Prisma } from '@prisma/client';
 
-import {
-  CategoryUpdateInput,
-  ICategoriesRepository,
-} from '../categories-repository';
+import { ICategoriesRepository } from '../categories-repository';
 
 export class InMemoryCategoriesRepository implements ICategoriesRepository {
   public categories: Category[] = [];
@@ -46,13 +43,19 @@ export class InMemoryCategoriesRepository implements ICategoriesRepository {
     return category;
   }
 
-  async update({ id, name, emoji }: CategoryUpdateInput): Promise<Category> {
+  async update({
+    id,
+    name,
+    emoji,
+  }: Prisma.CategoryCreateInput): Promise<Category> {
     const categoryIndex = this.categories.findIndex(
       category => category.id === id,
     );
 
+    const category = this.categories[categoryIndex];
+
     const updatedCategory = {
-      id,
+      id: category.id,
       name,
       emoji,
     };
