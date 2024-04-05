@@ -44,4 +44,22 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
 
     return category;
   }
+
+  async update({
+    id,
+    name,
+    emoji,
+  }: Prisma.CategoryCreateInput): Promise<Category> {
+    const category = await prisma.category.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name,
+        emoji,
+      },
+    });
+
+    return category;
+  }
 }
