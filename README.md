@@ -36,8 +36,16 @@ Here're some of the project's best features:
 
 <h2>💻 Built with</h2>
 
-Technologies used in the project:
+Tecnologias utilizadas no projeto:
 
-*   Node.js
-*   Express
-*   MongoDB
+* [![Node.js][node]][node-url]
+* [![TypeScript][typescript]][typescript-url]
+* [![Prisma][prisma]][prisma-url]
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[node]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=node.js&logoColor=%23339933
+[node-url]: https://nodejs.org/en
+[TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=%233178C6&labelColor=20232A
+[typescript-url]: https://www.typescriptlang.org/
+[prisma]: https://img.shields.io/badge/Prisma-%232D3748?style=for-the-badge&logo=prisma&logoColor=fff&labelColor=141414
+[prisma-url]: https://www.prisma.io/
