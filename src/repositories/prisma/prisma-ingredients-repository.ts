@@ -16,6 +16,20 @@ export class PrismaIngredientsRepository implements IIngredientsRepository {
     throw new Error('Method not implemented.');
   }
 
+  async findByName(name: string): Promise<Ingredient | null> {
+    const ingredient = await prisma.ingredient.findUnique({
+      where: {
+        name,
+      },
+    });
+
+    if (!ingredient) {
+      return null;
+    }
+
+    return ingredient;
+  }
+
   async create(data: Prisma.IngredientCreateInput): Promise<Ingredient> {
     const ingredient = await prisma.ingredient.create({ data });
 

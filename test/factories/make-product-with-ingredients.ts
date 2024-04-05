@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { faker } from '@faker-js/faker';
 import { Category, Product } from '@prisma/client';
 
-import { makeIngredient, makePrismaIngredient } from './make-ingredient';
+import { makeIngredient } from './make-ingredient';
 import { makeProduct } from './make-product';
 
 import { prisma } from '@/lib/prisma';
@@ -44,24 +44,24 @@ export function makeProductWithIngredients(
   return product;
 }
 
+type PartialProductWithIngredients = {
+  id?: string;
+  name: string;
+  description?: string;
+  imagePath?: string;
+  priceInCents?: number;
+  category: Category;
+  ingredients: Array<{
+    ingredientId: string;
+  }>;
+};
+
 export async function makePrismaProductWithIngredients({
   category,
   name,
-}: {
-  category: Category;
-  name: string;
-}): Promise<Product> {
+  ingredients,
+}: PartialProductWithIngredients): Promise<Product> {
   const newProduct = makeProduct({ name, categoryId: category.id });
-
-  const ingredients = [];
-
-  for (let i = 0; i < 3; i++) {
-    const ingredient = await makePrismaIngredient();
-
-    ingredients.push({
-      ingredientId: ingredient.id,
-    });
-  }
 
   const product = await prisma.product.create({
     data: {

@@ -12,9 +12,15 @@ describe('Create Product (E2E)', () => {
     });
 
     const [ingredient1, ingredient2, ingredient3] = await Promise.all([
-      makePrismaIngredient(),
-      makePrismaIngredient(),
-      makePrismaIngredient(),
+      makePrismaIngredient({
+        name: 'ingredient-1',
+      }),
+      makePrismaIngredient({
+        name: 'ingredient-2',
+      }),
+      makePrismaIngredient({
+        name: 'ingredient-3',
+      }),
     ]);
 
     const product = makeProductWithIngredients({

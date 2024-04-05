@@ -19,8 +19,11 @@ export function makeIngredient(
   return ingredient;
 }
 
+type PartialIngredient = Pick<Ingredient, 'name'> &
+  Partial<Omit<Ingredient, 'name'>>;
+
 export async function makePrismaIngredient(
-  data: Partial<Ingredient> = {},
+  data: PartialIngredient,
 ): Promise<Ingredient> {
   const ingredient = makeIngredient(data);
 

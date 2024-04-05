@@ -9,7 +9,9 @@
     "start": "node dist",
     "prepare": "husky",
     "test": "vitest run --dir src/use-cases",
+    "test:watch": "vitest --dir src/use-cases",
     "test:e2e": "vitest run --dir src/http",
+    "test:e2e:watch": "vitest --dir src/http",
     "test:cov": "vitest run --coverage",
     "studio": "prisma studio"
   },

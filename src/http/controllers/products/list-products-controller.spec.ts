@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
+import { makePrismaIngredient } from 'test/factories/make-ingredient';
 import { makePrismaProductWithIngredients } from 'test/factories/make-product-with-ingredients';
 
 import { app } from '@/app';
@@ -11,14 +12,39 @@ describe('List Products (E2E)', () => {
       makePrismaCategory({ name: 'category-2' }),
     ]);
 
+    const [ingredient1, ingredient2, ingredient3] = await Promise.all([
+      makePrismaIngredient({
+        name: 'ingredient-1',
+      }),
+      makePrismaIngredient({
+        name: 'ingredient-2',
+      }),
+      makePrismaIngredient({
+        name: 'ingredient-3',
+      }),
+    ]);
+
     await Promise.all([
       makePrismaProductWithIngredients({
         name: 'product-1',
         category: category1,
+        ingredients: [
+          {
+            ingredientId: ingredient1.id,
+          },
+          {
+            ingredientId: ingredient2.id,
+          },
+        ],
       }),
       makePrismaProductWithIngredients({
         name: 'product-2',
         category: category2,
+        ingredients: [
+          {
+            ingredientId: ingredient3.id,
+          },
+        ],
       }),
     ]);
 
