@@ -30,8 +30,49 @@ Here're some of the project's best features:
 
 <h2>🛠️ Installation Steps:</h2>
 
-<p>1. WIP</p>
+### Configurando o ambiente
 
+Para iniciar a aplicação localmente é necessário ter [Node](https://nodejs.org), [pnpm](https://pnpm.io) e [Docker](https://docker.com) previamente instalados.
+
+### Docker Compose
+
+A aplicação precisa de um banco de dados [Postgres](https://postgresql.org), com o arquivo `docker-compose.yml` o processo de criação do container é automatizado, basta rodar o comando:
+
+```bash
+$ docker compose up -d
+```
+### Environment Variables
+
+O arquivo `.env.example` contém todas as variáveis preenchidas para rodar localmente, basta copiar e alterar o nome para `.env`:
+
+```bash
+$ cp .env.example .env
+```
+
+### Migrations
+
+Para criar as tabelas do banco de dados, é necessário rodar as migrations:
+
+```bash
+$ pnpm prisma migrate deploy
+```
+### Seed
+
+O banco de dados pode ser pré-populado com o arquivo de seed, basta rodar o comando:
+
+```bash
+$ pnpm prisma db seed
+```
+### API
+
+Com o ambiente devidamente configurado, a aplicação está pronta para iniciar:
+
+```bash
+$ pnpm dev
+```
+Por padrão, a aplicação está rodando no endereço: `http://localhost:3333`
+
+Acesse `http://localhost:3333/docs` para a documentação
 
 
 <h2>💻 Built with</h2>
