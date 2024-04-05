@@ -11,18 +11,6 @@ export class InMemoryIngredientsRepository implements IIngredientsRepository {
     return this.ingredients;
   }
 
-  async findById(id: string): Promise<Ingredient | null> {
-    const ingredient = this.ingredients.find(
-      ingredient => ingredient.id === id,
-    );
-
-    if (!ingredient) {
-      return null;
-    }
-
-    return ingredient;
-  }
-
   async findByName(name: string): Promise<Ingredient | null> {
     const ingredient = this.ingredients.find(
       ingredient => ingredient.name === name,

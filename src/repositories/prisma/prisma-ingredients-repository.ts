@@ -5,15 +5,10 @@ import { IIngredientsRepository } from '../ingredients-repository';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaIngredientsRepository implements IIngredientsRepository {
-  findAll(): Promise<Ingredient[] | null> {
-    throw new Error('Method not implemented.');
-  }
+  async findAll(): Promise<Ingredient[] | null> {
+    const ingredients = await prisma.ingredient.findMany();
 
-  findById(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    id: string,
-  ): Promise<Ingredient | null> {
-    throw new Error('Method not implemented.');
+    return ingredients;
   }
 
   async findByName(name: string): Promise<Ingredient | null> {
