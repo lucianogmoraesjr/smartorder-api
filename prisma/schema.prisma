@@ -37,11 +37,11 @@ model Product {
   description   String
   imagePath     String                @map("image_path")
   priceInCents  Int                   @map("price_in_cents")
-  categoryId    String                @map("category_id")
+  categoryId    String?               @map("category_id")
   ingredients   ProductsIngredients[]
   orderProducts OrderProducts[]
 
-  category Category @relation(fields: [categoryId], references: [id])
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   @@map("products")
 }
