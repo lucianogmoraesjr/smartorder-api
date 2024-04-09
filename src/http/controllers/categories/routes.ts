@@ -4,6 +4,7 @@ import { ListProductsByCategoryController } from '../products/list-products-by-c
 
 import { CreateCategoryController } from './create-category-controller';
 import { DeleteCategoryController } from './delete-category-controller';
+import { GetCategoryByIdController } from './get-category-by-id-controller';
 import { ListCategoriesController } from './list-categories-controller';
 import { UpdateCategoryController } from './update-category-controller';
 
@@ -13,11 +14,13 @@ const createCategoryController = new CreateCategoryController();
 const listCategoriesController = new ListCategoriesController();
 const updateCategoryController = new UpdateCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
+const getCategoryByIdController = new GetCategoryByIdController();
 
 const listProductsByCategoryController = new ListProductsByCategoryController();
 
 categoriesRoutes.post('/', createCategoryController.handle);
 categoriesRoutes.get('/', listCategoriesController.handle);
+categoriesRoutes.get('/:categoryId', getCategoryByIdController.handle);
 categoriesRoutes.put('/:categoryId', updateCategoryController.handle);
 categoriesRoutes.delete('/:categoryId', deleteCategoryController.handle);
 
