@@ -57,6 +57,20 @@ export class PrismaProductsRepository implements IProductsRepository {
     return products;
   }
 
+  async findById(id: string): Promise<Product | null> {
+    const product = await prisma.product.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
+  }
+
   async findByName(name: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: {
@@ -102,5 +116,13 @@ export class PrismaProductsRepository implements IProductsRepository {
     });
 
     return product;
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.product.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
