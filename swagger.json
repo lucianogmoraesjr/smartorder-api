@@ -61,6 +61,30 @@
       }
     },
     "/categories/{categoryId}": {
+      "get": {
+        "tags": ["categories"],
+        "summary": "Get category by ID",
+        "description": "Retrieve a specific category by its ID",
+        "parameters": [{
+          "name": "categoryId",
+          "in": "path",
+          "description": "ID of the category to retrieve",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CategoryResponse"
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "categories"
@@ -267,6 +291,30 @@
         }
       }
     },
+    "/products/{productId}": {
+      "delete": {
+        "tags": ["products"],
+        "summary": "Delete product",
+        "description": "Delete a specific product",
+        "parameters": [{
+          "name": "productId",
+          "in": "path",
+          "description": "ID of the product to delete",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+
     "/orders": {
       "post": {
         "tags": [
