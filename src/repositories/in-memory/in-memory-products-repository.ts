@@ -23,6 +23,16 @@ export class InMemoryProductsRepository implements IProductsRepository {
     return this.products.filter(product => product.categoryId === categoryId);
   }
 
+  async findById(id: string): Promise<Product | null> {
+    const product = this.products.find(product => product.id === id);
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
+  }
+
   async findByName(name: string): Promise<Product | null> {
     const product = this.products.find(product => product.name === name);
 
@@ -47,5 +57,11 @@ export class InMemoryProductsRepository implements IProductsRepository {
     this.products.push(product);
 
     return product;
+  }
+
+  async delete(id: string): Promise<void> {
+    const productIndex = this.products.findIndex(product => product.id === id);
+
+    this.products.splice(productIndex, 1);
   }
 }
