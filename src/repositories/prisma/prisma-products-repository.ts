@@ -110,6 +110,7 @@ export class PrismaProductsRepository implements IProductsRepository {
         category: {
           select: {
             name: true,
+            emoji: true,
           },
         },
       },
