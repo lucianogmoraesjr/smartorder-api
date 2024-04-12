@@ -6,7 +6,11 @@ import { prisma } from '@/lib/prisma';
 
 export class PrismaIngredientsRepository implements IIngredientsRepository {
   async findAll(): Promise<Ingredient[] | null> {
-    const ingredients = await prisma.ingredient.findMany();
+    const ingredients = await prisma.ingredient.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    });
 
     return ingredients;
   }

@@ -8,6 +8,9 @@ import { prisma } from '@/lib/prisma';
 export class PrismaProductsRepository implements IProductsRepository {
   async findAll(): Promise<Product[] | null> {
     const products = await prisma.product.findMany({
+      orderBy: {
+        name: 'asc',
+      },
       include: {
         ingredients: {
           select: {
