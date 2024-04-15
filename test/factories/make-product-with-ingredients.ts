@@ -60,7 +60,7 @@ export async function makePrismaProductWithIngredients({
   category,
   name,
   ingredients,
-}: PartialProductWithIngredients): Promise<Product> {
+}: PartialProductWithIngredients) {
   const newProduct = makeProduct({ name, categoryId: category.id });
 
   const product = await prisma.product.create({

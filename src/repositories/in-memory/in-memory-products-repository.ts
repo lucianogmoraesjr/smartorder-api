@@ -4,7 +4,10 @@ import { Product } from '@prisma/client';
 
 import { IProductsRepository } from '../products-repository';
 
-import { ICreateProductDTO } from '@/dtos/create-product-dto';
+import {
+  ICreateProductDTO,
+  IUpdateProductDTO,
+} from '@/dtos/create-product-dto';
 
 type InMemoryProduct = Product & {
   ingredients?: Array<{
@@ -57,6 +60,20 @@ export class InMemoryProductsRepository implements IProductsRepository {
     this.products.push(product);
 
     return product;
+  }
+
+  async update(data: IUpdateProductDTO): Promise<Product> {
+    const productIndex = this.products.findIndex(
+      product => product.id === data.id,
+    );
+
+    const updatedProduct = {
+      ...data,
+    };
+
+    this.products[productIndex] = updatedProduct;
+
+    return updatedProduct;
   }
 
   async delete(id: string): Promise<void> {

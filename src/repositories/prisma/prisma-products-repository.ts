@@ -2,7 +2,10 @@ import { Product } from '@prisma/client';
 
 import { IProductsRepository } from '../products-repository';
 
-import { ICreateProductDTO } from '@/dtos/create-product-dto';
+import {
+  ICreateProductDTO,
+  IUpdateProductDTO,
+} from '@/dtos/create-product-dto';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaProductsRepository implements IProductsRepository {
@@ -128,6 +131,43 @@ export class PrismaProductsRepository implements IProductsRepository {
     });
 
     return product;
+  }
+
+  async update(data: IUpdateProductDTO): Promise<Product> {
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+        description: data.description,
+        priceInCents: data.priceInCents,
+        imagePath: data.imagePath,
+        categoryId: data.categoryId,
+        ingredients: {
+          create: data.ingredients?.map(ingredient => ({
+            ingredient: {
+              connect: { id: ingredient.ingredientId },
+            },
+          })),
+        },
+      },
+      include: {
+        ingredients: {
+          select: {
+            ingredient: true,
+          },
+        },
+        category: {
+          select: {
+            name: true,
+            emoji: true,
+          },
+        },
+      },
+    });
+
+    return updatedProduct;
   }
 
   async delete(id: string): Promise<void> {
