@@ -292,6 +292,103 @@
       }
     },
     "/products/{productId}": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Get product by ID",
+        "description": "Retrieve a specific product by its ID",
+        "parameters": [{
+          "name": "productId",
+          "in": "path",
+          "description": "ID of the product to retrieve",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["products"],
+        "summary": "Update product",
+        "description": "Update a specific product",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of the product to update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "New name of the product",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "New description of the product",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "priceInCents",
+            "description": "New price of the product in cents",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "formData",
+            "name": "categoryId",
+            "description": "New category ID of the product",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "formData",
+            "name": "ingredients",
+            "description": "New ingredients of the product (optional)",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "image",
+            "description": "New image of the product to upload",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
       "delete": {
         "tags": ["products"],
         "summary": "Delete product",
