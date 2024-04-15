@@ -1,6 +1,9 @@
 import { Product } from '@prisma/client';
 
-import { ICreateProductDTO } from '@/dtos/create-product-dto';
+import {
+  ICreateProductDTO,
+  IUpdateProductDTO,
+} from '@/dtos/create-product-dto';
 
 export interface IProductsRepository {
   findAll(): Promise<Product[] | null>;
@@ -8,5 +11,6 @@ export interface IProductsRepository {
   findById(id: string): Promise<Product | null>;
   findByName(name: string): Promise<Product | null>;
   create(data: ICreateProductDTO): Promise<Product>;
+  update(data: IUpdateProductDTO): Promise<Product>;
   delete(id: string): Promise<void>;
 }
