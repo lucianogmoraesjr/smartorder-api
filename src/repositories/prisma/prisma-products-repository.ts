@@ -65,6 +65,19 @@ export class PrismaProductsRepository implements IProductsRepository {
       where: {
         id,
       },
+      include: {
+        ingredients: {
+          select: {
+            ingredient: true,
+          },
+        },
+        category: {
+          select: {
+            name: true,
+            emoji: true,
+          },
+        },
+      },
     });
 
     if (!product) {
