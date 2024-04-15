@@ -24,7 +24,11 @@ productsRoutes.post(
 
 productsRoutes.get('/', listProductsController.handle);
 productsRoutes.get('/:productId', getProductByIdController.handle);
-productsRoutes.put('/:productId', updateProductController.handle);
+productsRoutes.put(
+  '/:productId',
+  upload.single('image'),
+  updateProductController.handle,
+);
 productsRoutes.delete('/:productId', deleteProductController.handle);
 
 export { productsRoutes };
