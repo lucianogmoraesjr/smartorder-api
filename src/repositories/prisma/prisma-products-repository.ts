@@ -71,12 +71,7 @@ export class PrismaProductsRepository implements IProductsRepository {
             ingredient: true,
           },
         },
-        category: {
-          select: {
-            name: true,
-            emoji: true,
-          },
-        },
+        category: true,
       },
     });
 
