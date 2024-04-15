@@ -28,10 +28,10 @@ export class UpdateProductController {
 
     const { productId } = updateProductParamsSchema.parse(request.params);
 
-    const imagePath = request.file?.filename;
-
     const { name, description, priceInCents, ingredients, categoryId } =
       updateProductBodySchema.parse(request.body);
+
+    const imagePath = request.file?.filename;
 
     const updateProductUseCase = makeUpdateProductUseCase();
 
