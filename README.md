@@ -91,12 +91,21 @@ Tecnologias utilizadas no projeto:
 
 * [![Node.js][node]][node-url]
 * [![TypeScript][typescript]][typescript-url]
+* [![Express][express]][express-url]
+* [![Socket.IO][socketio]][socketio-url]
 * [![Prisma][prisma]][prisma-url]
+* [![Zod][zod]][zod-url]
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[node]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=node.js&logoColor=%23339933
+[node]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=node.js&logoColor=%23339933&labelColor=20232A
 [node-url]: https://nodejs.org/en
-[TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=%233178C6&labelColor=20232A
+[TypeScript]: https://img.shields.io/badge/TypeScript-20232A?style=for-the-badge&logo=TypeScript&logoColor=%233178C6&labelColor=20232A
 [typescript-url]: https://www.typescriptlang.org/
-[prisma]: https://img.shields.io/badge/Prisma-%232D3748?style=for-the-badge&logo=prisma&logoColor=fff&labelColor=141414
+[prisma]: https://img.shields.io/badge/Prisma-20232A?style=for-the-badge&logo=prisma&logoColor=fff&labelColor=20232A
 [prisma-url]: https://www.prisma.io/
+[express]: https://img.shields.io/badge/Express%20-%20%2320232A?style=for-the-badge&logo=express&labelColor=20232A
+[express-url]: https://expressjs.com/
+[socketio]: https://img.shields.io/badge/Socket.IO%20-%20%2320232A?style=for-the-badge&logo=socketdotio&labelColor=20232A
+[socketio-url]: https://socket.io/
+[zod]: https://img.shields.io/badge/Zod%20-%20%2320232A?style=for-the-badge&logo=zod&labelColor=20232A
+[zod-url]: https://zod.dev/
