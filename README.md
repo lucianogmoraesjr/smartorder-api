@@ -20,6 +20,8 @@ Here're some of the project's best features:
 | Methods | Endpoints | Action |
 | --- | --- | --- |
 | `GET` | /docs | To access API Docs with Swagger |
+| `POST` | /authenticate | To authenticate |
+| `POST` | /users | To create a new user |
 | `POST` | /products | To create a new product |
 | `GET` | /products | To fetch all products |
 | `GET` | /categories/:categoryId/products | To fetch all products by category |
