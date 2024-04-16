@@ -13,10 +13,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  WAITER
+  ADMIN
+}
+
 enum OrderStatus {
   WAITING
   IN_PRODUCTION
   DONE
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole @default(WAITER)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
 }
 
 model Category {
