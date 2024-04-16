@@ -10,7 +10,7 @@ export function makeUser(override: Partial<User> = {}, id?: string) {
     id: id ?? randomUUID(),
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: faker.internet.password(),
+    passwordHash: faker.internet.password(),
     role: faker.helpers.arrayElement(['ADMIN', 'WAITER']),
     createdAt: new Date(),
     updatedAt: new Date(),
