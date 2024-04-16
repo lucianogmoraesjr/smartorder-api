@@ -2,17 +2,19 @@
 
 <p align="center"><img src="https://socialify.git.ci/lucianogmoraesjr/smartorder-api/image?description=1&amp;descriptionEditable=SmartOrder%20API&amp;font=Inter&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Solid&amp;theme=Auto" alt="project-image"></p>
 
-<p id="description">Aplicação para realização de pedidos</p>
+<p align="center"><img src="https://img.shields.io/badge/version-v1-%23339933" alt="shields"></p>
 
-<p align="center"><img src="https://img.shields.io/badge/version-v1-%23339933" alt="shields"><img src="https://img.shields.io/badge/WIP-node?style=flat&amp;logo=nodedotjs&amp;color=%235B5B5B" alt="shields"></p>
-
-
+<p id="description">O SmartOrder é uma aplicação inovadora projetada para agilizar o processo de atendimento em restaurantes e bares. Com uma interface intuitiva e fácil de usar, SmartOrder permite que os garçons anotem os pedidos dos clientes de forma rápida e eficiente, eliminando a necessidade de anotações em papel e minimizando erros de comunicação.</p>
 
 <h2>🧐 Features</h2>
 
 Here're some of the project's best features:
 
-*   WIP
+*   Acompanhamento de pedidos em tempo real
+*   Cadastro de produtos
+*   Cadastro de ingredientes
+*   Cadastro de categorias
+*   Criação de novos pedidos
 
 ### 🧭 API Endpoints
 | Methods | Endpoints | Action |
@@ -21,8 +23,12 @@ Here're some of the project's best features:
 | `POST` | /products | To create a new product |
 | `GET` | /products | To fetch all products |
 | `GET` | /categories/:categoryId/products | To fetch all products by category |
+| `GET` | /products/:productId | To get a product by ID |
+| `PUT` | /products/:productId | To update a product |
+| `DELETE` | /products/:productId | To delete a product |
 | `POST` | /categories | To create a new category |
 | `GET` | /categories | To fetch all categories |
+| `GET` | /categories/:categoryId | To get a category by ID |
 | `PUT` | /categories/:categoryId | To update a category |
 | `DELETE` | /categories/:categoryId | To delete a category |
 | `POST` | /ingredients | To create a new ingredient |
