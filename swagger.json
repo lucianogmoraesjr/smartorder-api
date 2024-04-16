@@ -6,6 +6,68 @@
     "version": "1.0"
   },
   "paths": {
+    "/authenticate": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Authenticate user",
+        "description": "Authenticate a user",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create user",
+        "description": "Create a new user",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid data provided"
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": [
@@ -609,6 +671,88 @@
     }
   },
   "definitions": {
+    "AuthRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email of the user"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password of the user"
+        }
+      },
+      "required": ["email", "password"]
+    },
+    "AuthResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "description": "Access token for the authenticated user"
+        }
+      }
+    },
+    "UserRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email of the user"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password of the user"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["WAITER", "ADMIN"],
+          "description": "Role of the user (optional)"
+        }
+      },
+      "required": ["name", "email", "password"]
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "User ID",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email of the user"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["WAITER", "ADMIN"],
+          "description": "Role of the user"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time when the user was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time when the user was last updated"
+        }
+      }
+    },
     "CategoryRequest": {
       "type": "object",
       "properties": {
