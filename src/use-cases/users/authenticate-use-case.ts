@@ -25,10 +25,11 @@ export class AuthenticateUseCase {
       throw new AppError('Invalid e-mail or password', 401);
     }
 
-    const token = sign({ role: user.role }, 'my-super-secret-password', {
+    const accessToken = sign({ role: user.role }, 'my-super-secret-password', {
       subject: user.id,
+      expiresIn: '1d',
     });
 
-    return { token };
+    return { accessToken };
   }
 }

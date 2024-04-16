@@ -8,6 +8,8 @@ import { GetCategoryByIdController } from './get-category-by-id-controller';
 import { ListCategoriesController } from './list-categories-controller';
 import { UpdateCategoryController } from './update-category-controller';
 
+import { ensureAdmin } from '@/middlewares/ensure-admin';
+
 const categoriesRoutes = Router();
 
 const createCategoryController = new CreateCategoryController();
@@ -18,15 +20,26 @@ const getCategoryByIdController = new GetCategoryByIdController();
 
 const listProductsByCategoryController = new ListProductsByCategoryController();
 
-categoriesRoutes.post('/', createCategoryController.handle);
 categoriesRoutes.get('/', listCategoriesController.handle);
 categoriesRoutes.get('/:categoryId', getCategoryByIdController.handle);
-categoriesRoutes.put('/:categoryId', updateCategoryController.handle);
-categoriesRoutes.delete('/:categoryId', deleteCategoryController.handle);
 
 categoriesRoutes.get(
   '/:categoryId/products',
   listProductsByCategoryController.handle,
+);
+
+categoriesRoutes.post('/', ensureAdmin, createCategoryController.handle);
+
+categoriesRoutes.put(
+  '/:categoryId',
+  ensureAdmin,
+  updateCategoryController.handle,
+);
+
+categoriesRoutes.delete(
+  '/:categoryId',
+  ensureAdmin,
+  deleteCategoryController.handle,
 );
 
 export { categoriesRoutes };

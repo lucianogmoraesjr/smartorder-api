@@ -14,19 +14,11 @@ export class AuthenticateController {
 
     const authenticateUseCase = makeAuthenticateUseCase();
 
-    const { token } = await authenticateUseCase.execute({
+    const { accessToken } = await authenticateUseCase.execute({
       email,
       password,
     });
 
-    return response
-      .cookie('token', token, {
-        path: '/',
-        secure: true,
-        sameSite: true,
-        httpOnly: true,
-      })
-      .status(200)
-      .json({ token });
+    return response.status(200).json({ accessToken });
   }
 }

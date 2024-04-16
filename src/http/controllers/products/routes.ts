@@ -7,6 +7,7 @@ import { ListProductsController } from './list-products-controller';
 import { UpdateProductController } from './update-product-controller';
 
 import { upload } from '@/config/upload';
+import { ensureAdmin } from '@/middlewares/ensure-admin';
 
 const productsRoutes = Router();
 
@@ -18,17 +19,25 @@ const deleteProductController = new DeleteProductController();
 
 productsRoutes.post(
   '/',
+  ensureAdmin,
   upload.single('image'),
   createProductController.handle,
 );
 
-productsRoutes.get('/', listProductsController.handle);
-productsRoutes.get('/:productId', getProductByIdController.handle);
 productsRoutes.put(
   '/:productId',
+  ensureAdmin,
   upload.single('image'),
   updateProductController.handle,
 );
-productsRoutes.delete('/:productId', deleteProductController.handle);
+
+productsRoutes.delete(
+  '/:productId',
+  ensureAdmin,
+  deleteProductController.handle,
+);
+
+productsRoutes.get('/', listProductsController.handle);
+productsRoutes.get('/:productId', getProductByIdController.handle);
 
 export { productsRoutes };
