@@ -88,6 +88,35 @@
         }
       }
     },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get user by ID",
+        "description": "Retrieve a user by ID",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": [
