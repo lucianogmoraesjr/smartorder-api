@@ -11,9 +11,9 @@ export class DeleteCategoryController {
 
     const { categoryId } = deleteCategoryParamsSchema.parse(request.params);
 
-    const createCategoryUseCase = makeDeleteCategoryUseCase();
+    const deleteCategoryUseCase = makeDeleteCategoryUseCase();
 
-    await createCategoryUseCase.execute(categoryId);
+    await deleteCategoryUseCase.execute(categoryId);
 
     return response.sendStatus(204);
   }
