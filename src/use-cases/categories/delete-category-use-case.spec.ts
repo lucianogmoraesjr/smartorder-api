@@ -27,7 +27,7 @@ describe('Delete Category Use Case', () => {
     expect(inMemoryCategoriesRepository.categories).toHaveLength(0);
   });
 
-  it('should not be able to update a non-existing category', async () => {
+  it('should not be able to delete a non-existing category', async () => {
     await expect(sut.execute('non-existing-id')).rejects.toEqual(
       new AppError('Category not found', 404),
     );
