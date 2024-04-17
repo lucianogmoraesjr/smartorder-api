@@ -22,6 +22,8 @@ Here're some of the project's best features:
 | `GET` | /docs | To access API Docs with Swagger |
 | `POST` | /authenticate | To authenticate |
 | `POST` | /users | To create a new user |
+| `GET` | /users | To fetch all users |
+| `GET` | /users/:userId | To get a user by ID |
 | `POST` | /products | To create a new product |
 | `GET` | /products | To fetch all products |
 | `GET` | /categories/:categoryId/products | To fetch all products by category |
