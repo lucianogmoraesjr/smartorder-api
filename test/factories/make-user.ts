@@ -20,7 +20,7 @@ export function makeUser(override: Partial<User> = {}, id?: string) {
   return user;
 }
 
-export async function makePrismaUser(data: Partial<User>): Promise<User> {
+export async function makePrismaUser(data: Partial<User> = {}): Promise<User> {
   const user = makeUser(data);
 
   await prisma.user.create({
