@@ -5,6 +5,10 @@ import { IUsersRepository } from '../users-repository';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaUsersRepository implements IUsersRepository {
+  async findAll(): Promise<User[]> {
+    return await prisma.user.findMany();
+  }
+
   async findByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
