@@ -23,12 +23,12 @@ describe('Authenticate User Use Case', () => {
       }),
     );
 
-    const { token } = await authenticateUseCase.execute({
+    const { accessToken } = await authenticateUseCase.execute({
       email: 'john@mail.com',
       password: '123456',
     });
 
-    expect(token).toEqual(expect.any(String));
+    expect(accessToken).toEqual(expect.any(String));
   });
 
   it('should not be able to authenticate a user with invalid e-mail', async () => {
