@@ -11,9 +11,9 @@ export class GetCategoryByIdController {
 
     const { categoryId } = getCategoryByIdParamsSchema.parse(request.params);
 
-    const createCategoryUseCase = makeGetCategoryByIdUseCase();
+    const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
 
-    const category = await createCategoryUseCase.execute(categoryId);
+    const category = await getCategoryByIdUseCase.execute(categoryId);
 
     return response.status(200).json(category);
   }
