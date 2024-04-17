@@ -47,6 +47,24 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return user;
   }
 
+  async update(data: Prisma.UserCreateInput): Promise<User> {
+    const userIndex = this.users.findIndex(user => user.id === data.id);
+
+    const updatedUser: User = {
+      id: data.id ?? randomUUID(),
+      name: data.name,
+      email: data.email,
+      passwordHash: data.passwordHash,
+      role: data.role ?? 'WAITER',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    this.users[userIndex] = updatedUser;
+
+    return updatedUser;
+  }
+
   async delete(id: string): Promise<void> {
     const userIndex = this.users.findIndex(user => user.id === id);
 
