@@ -2,6 +2,7 @@ import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaOrder } from 'test/factories/make-order';
 import { makePrismaProduct } from 'test/factories/make-product';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -41,8 +42,11 @@ describe('Update Order Status (E2E)', () => {
       ],
     });
 
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
     const response = await request(app)
       .patch(`/orders/${order.id}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({ status: 'IN_PRODUCTION' });
 
     const updatedOrderStatus = await prisma.order.findFirst({

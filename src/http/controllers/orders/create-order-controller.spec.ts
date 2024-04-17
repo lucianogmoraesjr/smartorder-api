@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaProduct } from 'test/factories/make-product';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 
@@ -21,8 +22,11 @@ describe('Create Order (E2E)', () => {
       }),
     ]);
 
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
     const response = await request(app)
       .post('/orders')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         table: 1,
         products: [
