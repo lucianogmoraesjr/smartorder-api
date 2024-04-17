@@ -24,6 +24,7 @@ Here're some of the project's best features:
 | `POST` | /users | To create a new user |
 | `GET` | /users | To fetch all users |
 | `GET` | /users/:userId | To get a user by ID |
+| `PUT` | /users/:userId | To update a user |
 | `DELETE` | /users/:userId | To delete a user |
 | `POST` | /products | To create a new product |
 | `GET` | /products | To fetch all products |
