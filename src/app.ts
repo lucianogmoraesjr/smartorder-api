@@ -22,9 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use('/tmp', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 app.use(router);
-app.use('/tmp', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
