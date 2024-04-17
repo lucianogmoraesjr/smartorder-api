@@ -66,6 +66,26 @@
             "description": "Invalid data provided"
           }
         }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "List users",
+        "description": "Retrieve a list of all users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserResponse"
+              }
+            }
+          },
+          "404": {
+            "description": "No users found"
+          }
+        }
       }
     },
     "/categories": {
