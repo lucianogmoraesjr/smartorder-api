@@ -2,6 +2,7 @@ import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaIngredient } from 'test/factories/make-ingredient';
 import { makePrismaProductWithIngredients } from 'test/factories/make-product-with-ingredients';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 
@@ -36,7 +37,11 @@ describe('Delete Product (E2E)', () => {
       ],
     });
 
-    const response = await request(app).delete(`/products/${product.id}`);
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
+    const response = await request(app)
+      .delete(`/products/${product.id}`)
+      .set('Authorization', `Bearer ${accessToken}`);
 
     expect(response.status).toBe(204);
   });

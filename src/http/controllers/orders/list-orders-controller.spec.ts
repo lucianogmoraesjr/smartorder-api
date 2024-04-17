@@ -2,6 +2,7 @@ import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaOrder } from 'test/factories/make-order';
 import { makePrismaProduct } from 'test/factories/make-product';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 
@@ -46,7 +47,11 @@ describe('List Orders (E2E)', () => {
       }),
     ]);
 
-    const response = await request(app).get('/orders');
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
+    const response = await request(app)
+      .get('/orders')
+      .set('Authorization', `Bearer ${accessToken}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveLength(2);

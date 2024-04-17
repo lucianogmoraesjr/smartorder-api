@@ -18,7 +18,7 @@ describe('Authenticate User (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-      token: expect.any(String),
+      accessToken: expect.any(String),
     });
   });
 });

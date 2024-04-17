@@ -2,6 +2,7 @@ import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaOrder } from 'test/factories/make-order';
 import { makePrismaProduct } from 'test/factories/make-product';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -41,7 +42,11 @@ describe('Cancel Order (E2E)', () => {
       ],
     });
 
-    const response = await request(app).delete(`/orders/${order.id}`);
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
+    const response = await request(app)
+      .delete(`/orders/${order.id}`)
+      .set('Authorization', `Bearer ${accessToken}`);
 
     const deletedOrder = await prisma.order.findFirst({
       where: {

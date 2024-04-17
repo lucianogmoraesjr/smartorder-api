@@ -2,6 +2,7 @@ import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaIngredient } from 'test/factories/make-ingredient';
 import { makePrismaProductWithIngredients } from 'test/factories/make-product-with-ingredients';
+import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
 
@@ -36,8 +37,11 @@ describe('Update Product(E2E)', () => {
       ],
     });
 
+    const { accessToken } = await makeUserAndAuthenticate(app);
+
     const response = await request(app)
       .put(`/products/${product.id}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         ...product,
         name: 'updated-product',
