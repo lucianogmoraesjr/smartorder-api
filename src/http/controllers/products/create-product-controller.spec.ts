@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { makePrismaCategory } from 'test/factories/make-category';
 import { makePrismaIngredient } from 'test/factories/make-ingredient';
-import { makeProductWithIngredients } from 'test/factories/make-product-with-ingredients';
+import { makeProduct } from 'test/factories/make-product';
 import { makeUserAndAuthenticate } from 'test/factories/make-user-and-authenticate';
 
 import { app } from '@/app';
@@ -24,17 +24,21 @@ describe('Create Product (E2E)', () => {
       }),
     ]);
 
-    const product = makeProductWithIngredients({
+    const product = makeProduct({
       categoryId: category.id,
-      ingredients: [ingredient1.id, ingredient2.id, ingredient3.id],
     });
+
+    const requestBody = {
+      ...product,
+      ingredients: [ingredient1.id, ingredient2.id, ingredient3.id],
+    };
 
     const { accessToken } = await makeUserAndAuthenticate(app);
 
     const response = await request(app)
       .post('/products')
       .set('Authorization', `Bearer ${accessToken}`)
-      .send(product);
+      .send(requestBody);
 
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({

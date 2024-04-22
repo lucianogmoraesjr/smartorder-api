@@ -1,7 +1,11 @@
 import { randomUUID } from 'node:crypto';
 
 import { faker } from '@faker-js/faker';
-import { Product } from '@prisma/client';
+import { Product as PrismaProduct } from '@prisma/client';
+
+type Product = Omit<PrismaProduct, 'categoryId'> & {
+  categoryId: string;
+};
 
 import { prisma } from '@/lib/prisma';
 
