@@ -26,17 +26,7 @@ describe('Create Product (E2E)', () => {
 
     const product = makeProductWithIngredients({
       categoryId: category.id,
-      ingredients: [
-        {
-          ingredientId: ingredient1.id,
-        },
-        {
-          ingredientId: ingredient2.id,
-        },
-        {
-          ingredientId: ingredient3.id,
-        },
-      ],
+      ingredients: [ingredient1.id, ingredient2.id, ingredient3.id],
     });
 
     const { accessToken } = await makeUserAndAuthenticate(app);

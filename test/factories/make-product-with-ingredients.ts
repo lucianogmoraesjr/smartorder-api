@@ -9,9 +9,7 @@ import { makeProduct } from './make-product';
 import { prisma } from '@/lib/prisma';
 
 type ProductWithIngredients = Product & {
-  ingredients?: Array<{
-    ingredientId: string;
-  }>;
+  ingredients?: Array<string>;
 };
 
 export function makeProductWithIngredients(
@@ -28,15 +26,9 @@ export function makeProductWithIngredients(
       faker.finance.amount({ min: 1000, max: 5000, dec: 0 }),
     ),
     ingredients: [
-      {
-        ingredientId: makeIngredient().id,
-      },
-      {
-        ingredientId: makeIngredient().id,
-      },
-      {
-        ingredientId: makeIngredient().id,
-      },
+      makeIngredient().id,
+      makeIngredient().id,
+      makeIngredient().id,
     ],
     ...override,
   };

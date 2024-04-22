@@ -45,14 +45,7 @@ describe('Update Product(E2E)', () => {
       .send({
         ...product,
         name: 'updated-product',
-        ingredients: [
-          {
-            ingredientId: ingredient1.id,
-          },
-          {
-            ingredientId: ingredient2.id,
-          },
-        ],
+        ingredients: [ingredient1.id, ingredient2.id],
       });
 
     expect(response.status).toBe(200);

@@ -9,17 +9,9 @@ export class UpdateProductController {
       name: z.string(),
       description: z.string(),
       priceInCents: z.coerce.number(),
+      imagePath: z.string(),
       categoryId: z.string().cuid().or(z.string().uuid()),
-      ingredients: z
-        .string()
-        .or(
-          z.array(
-            z.object({
-              ingredientId: z.string().cuid().or(z.string().uuid()),
-            }),
-          ),
-        )
-        .optional(),
+      ingredients: z.array(z.string()).optional(),
     });
 
     const updateProductParamsSchema = z.object({
@@ -28,15 +20,20 @@ export class UpdateProductController {
 
     const { productId } = updateProductParamsSchema.parse(request.params);
 
-    const { name, description, priceInCents, ingredients, categoryId } =
-      updateProductBodySchema.parse(request.body);
-
-    const imagePath = request.file?.filename;
+    const {
+      name,
+      description,
+      priceInCents,
+      imagePath,
+      ingredients,
+      categoryId,
+    } = updateProductBodySchema.parse(request.body);
 
     const updateProductUseCase = makeUpdateProductUseCase();
 
-    const parsedIngredients =
-      typeof ingredients === 'string' ? JSON.parse(ingredients) : ingredients;
+    const parsedIngredients = ingredients?.map(ingredient => ({
+      ingredientId: ingredient,
+    }));
 
     const product = await updateProductUseCase.execute({
       id: productId,
