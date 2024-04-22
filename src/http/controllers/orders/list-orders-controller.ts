@@ -6,8 +6,8 @@ export class ListOrdersController {
   async handle(request: Request, response: Response) {
     const listOrdersUseCase = makeListOrdersUseCase();
 
-    const categories = await listOrdersUseCase.execute();
+    const orders = await listOrdersUseCase.execute();
 
-    return response.json(categories);
+    return response.json(orders);
   }
 }

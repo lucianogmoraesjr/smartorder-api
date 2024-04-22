@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import z from 'zod';
 
-import { ImagePathPresenter } from '@/http/presenters/image-path-presenter';
+import { ProductPresenter } from '@/http/presenters/product-presenter';
 import { makeGetProductByIdUseCase } from '@/use-cases/products/factories/make-get-product-by-id-use-case';
 
 export class GetProductByIdController {
@@ -16,9 +16,6 @@ export class GetProductByIdController {
 
     const product = await getProductByIdUseCase.execute(productId);
 
-    return response.status(200).json({
-      ...product,
-      imagePath: ImagePathPresenter.toHttp(product.imagePath),
-    });
+    return response.status(200).json(ProductPresenter.toHttp(product));
   }
 }
