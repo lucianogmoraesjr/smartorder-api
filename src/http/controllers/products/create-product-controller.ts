@@ -9,28 +9,25 @@ export class CreateProductController {
       name: z.string(),
       description: z.string(),
       priceInCents: z.coerce.number(),
+      imagePath: z.string(),
       categoryId: z.string().cuid().or(z.string().uuid()),
-      ingredients: z
-        .string()
-        .or(
-          z.array(
-            z.object({
-              ingredientId: z.string().cuid().or(z.string().uuid()),
-            }),
-          ),
-        )
-        .optional(),
+      ingredients: z.array(z.string()).optional(),
     });
 
-    const imagePath = request.file?.filename;
-
-    const { name, description, priceInCents, ingredients, categoryId } =
-      createProductBodySchema.parse(request.body);
+    const {
+      name,
+      description,
+      priceInCents,
+      imagePath,
+      ingredients,
+      categoryId,
+    } = createProductBodySchema.parse(request.body);
 
     const createProductUseCase = makeCreateProductUseCase();
 
-    const parsedIngredients =
-      typeof ingredients === 'string' ? JSON.parse(ingredients) : ingredients;
+    const parsedIngredients = ingredients?.map(ingredient => ({
+      ingredientId: ingredient,
+    }));
 
     const product = await createProductUseCase.execute({
       name,
