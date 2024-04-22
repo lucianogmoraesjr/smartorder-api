@@ -2,10 +2,13 @@ import { Product } from '@prisma/client';
 
 import { IProductsRepository } from '../products-repository';
 
+import { PrismaProductDetailsMapper } from './mappers/prisma-product-details-mapper';
+
 import {
   ICreateProductDTO,
   IUpdateProductDTO,
 } from '@/dtos/create-product-dto';
+import { IProductDetails } from '@/entities/product-details';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaProductsRepository implements IProductsRepository {
@@ -63,7 +66,7 @@ export class PrismaProductsRepository implements IProductsRepository {
     return products;
   }
 
-  async findById(id: string): Promise<Product | null> {
+  async findById(id: string): Promise<IProductDetails | null> {
     const product = await prisma.product.findUnique({
       where: {
         id,
@@ -82,7 +85,7 @@ export class PrismaProductsRepository implements IProductsRepository {
       return null;
     }
 
-    return product;
+    return PrismaProductDetailsMapper.toDomain(product);
   }
 
   async findByName(name: string): Promise<Product | null> {
