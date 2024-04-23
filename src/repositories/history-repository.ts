@@ -1,6 +1,6 @@
-import { History } from '@prisma/client';
+import { IOrder } from '@/entities/order';
 
 export interface IHistoryRepository {
   createArchive(orderId: string): Promise<void>;
-  listArchived(): Promise<History[] | null>;
+  listArchived(): Promise<IOrder[] | null>;
 }
