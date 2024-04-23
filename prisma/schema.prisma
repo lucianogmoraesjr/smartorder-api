@@ -81,12 +81,15 @@ model ProductsIngredients {
 }
 
 model Order {
-  id        String          @id @default(cuid())
-  table     Int
-  status    OrderStatus     @default(WAITING)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-  products  OrderProducts[]
+  id         String      @id @default(cuid())
+  table      Int
+  status     OrderStatus @default(WAITING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  archivedAt DateTime?
+
+  products OrderProducts[]
+  history  History[]
 
   @@map("orders")
 }
@@ -99,4 +102,13 @@ model OrderProducts {
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model History {
+  id      String @id @default(cuid())
+  orderId String @map("order_id")
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@map("history")
 }
