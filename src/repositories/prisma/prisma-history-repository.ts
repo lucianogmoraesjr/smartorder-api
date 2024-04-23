@@ -1,7 +1,8 @@
-import { History } from '@prisma/client';
-
 import { IHistoryRepository } from '../history-repository';
 
+import { PrismaArchivedOrderMapper } from './mappers/prisma-history-mapper';
+
+import { IOrder } from '@/entities/order';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaHistoryRepository implements IHistoryRepository {
@@ -13,13 +14,34 @@ export class PrismaHistoryRepository implements IHistoryRepository {
     });
   }
 
-  async listArchived(): Promise<History[] | null> {
-    const archivedOrders = await prisma.history.findMany();
+  async listArchived(): Promise<IOrder[] | null> {
+    const archivedOrders = await prisma.history.findMany({
+      include: {
+        order: {
+          include: {
+            products: {
+              include: {
+                product: {
+                  include: {
+                    ingredients: {
+                      include: {
+                        ingredient: true,
+                      },
+                    },
+                    category: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
 
     if (!archivedOrders) {
       return null;
     }
 
-    return archivedOrders;
+    return archivedOrders.map(PrismaArchivedOrderMapper.toDomain);
   }
 }

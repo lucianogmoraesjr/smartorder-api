@@ -4,6 +4,8 @@ import { History } from '@prisma/client';
 
 import { IHistoryRepository } from '../history-repository';
 
+import { IOrder } from '@/entities/order';
+
 export class InMemoryHistoryRepository implements IHistoryRepository {
   public history: History[] = [];
 
@@ -16,7 +18,7 @@ export class InMemoryHistoryRepository implements IHistoryRepository {
     this.history.push(archive);
   }
 
-  async listArchived(): Promise<History[] | null> {
+  async listArchived(): Promise<IOrder[] | null> {
     const archivedOrders = this.history;
 
     if (!archivedOrders) {
