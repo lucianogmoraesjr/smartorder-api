@@ -2,6 +2,7 @@ import { makeOrder } from 'test/factories/make-order';
 
 import { ArchiveOrderUseCase } from './archive-order-use-case';
 
+import { AppError } from '@/errors/app-error';
 import { InMemoryHistoryRepository } from '@/repositories/in-memory/in-memory-history-repository';
 import { InMemoryOrdersRepository } from '@/repositories/in-memory/in-memory-orders-repository';
 
@@ -44,5 +45,11 @@ describe('Archive Order Use Case', () => {
         orderId: order.id,
       }),
     ]);
+  });
+
+  it('should not be able to archive a non-existing order', async () => {
+    await expect(sut.execute('non-existing-order')).rejects.toEqual(
+      new AppError('Order not found', 404),
+    );
   });
 });

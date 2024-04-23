@@ -15,4 +15,14 @@ export class InMemoryHistoryRepository implements IHistoryRepository {
 
     this.history.push(archive);
   }
+
+  async listArchived(): Promise<History[] | null> {
+    const archivedOrders = this.history;
+
+    if (!archivedOrders) {
+      return null;
+    }
+
+    return archivedOrders;
+  }
 }
