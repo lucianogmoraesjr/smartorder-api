@@ -27,6 +27,7 @@ export function makeOrder(
     status: 'WAITING',
     createdAt: new Date(),
     updatedAt: new Date(),
+    archivedAt: null,
     products: [
       {
         productId: product1.id,

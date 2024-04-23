@@ -36,6 +36,7 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
       table: data.table,
       status: 'WAITING',
       products: data.products,
+      archivedAt: null,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -44,11 +45,19 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
 
     return order;
   }
+
   async updateStatus(data: IUpdateStatusRequest): Promise<void> {
     const orderIndex = this.orders.findIndex(order => order.id === data.id);
 
     this.orders[orderIndex].status = data.status;
   }
+
+  async markAsArchived(id: string): Promise<void> {
+    const orderIndex = this.orders.findIndex(order => order.id === id);
+
+    this.orders[orderIndex].archivedAt = new Date();
+  }
+
   async delete(id: string): Promise<void> {
     const orderIndex = this.orders.findIndex(order => order.id === id);
 

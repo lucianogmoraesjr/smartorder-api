@@ -12,5 +12,6 @@ export interface IOrdersRepository {
   findById(id: string): Promise<Order | null>;
   create(data: ICreateOrderDTO): Promise<Order>;
   updateStatus(data: IUpdateStatusRequest): Promise<void>;
+  markAsArchived(id: string): Promise<void>;
   delete(id: string): Promise<void>;
 }
