@@ -16,6 +16,9 @@ export class PrismaOrdersRepository implements IOrdersRepository {
           },
         },
       },
+      where: {
+        archivedAt: null,
+      },
     });
 
     if (!orders) {
