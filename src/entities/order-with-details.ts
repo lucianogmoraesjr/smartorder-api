@@ -1,6 +1,6 @@
 import { IProductDetails } from './product-details';
 
-export interface IOrder {
+export interface IOrderWithDetails {
   id: string;
   table: number;
   status: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
