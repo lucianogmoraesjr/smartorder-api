@@ -1,8 +1,8 @@
 import { Prisma } from '@prisma/client';
 
-import { IOrder } from '@/entities/order';
+import { IOrderWithDetails } from '@/entities/order-with-details';
 
-const archivedOrderDetails = Prisma.validator<Prisma.HistoryDefaultArgs>()({
+const archivedOrderWithDetails = Prisma.validator<Prisma.HistoryDefaultArgs>()({
   include: {
     order: {
       include: {
@@ -25,13 +25,13 @@ const archivedOrderDetails = Prisma.validator<Prisma.HistoryDefaultArgs>()({
   },
 });
 
-type PrismaArchivedOrder = Prisma.HistoryGetPayload<
-  typeof archivedOrderDetails
+type PrismaArchivedOrderWithDetails = Prisma.HistoryGetPayload<
+  typeof archivedOrderWithDetails
 >;
 
-export class PrismaArchivedOrderMapper {
-  static toDomain(raw: PrismaArchivedOrder): IOrder {
-    const order: IOrder = {
+export class PrismaArchivedOrderWithDetailsMapper {
+  static toDomain(raw: PrismaArchivedOrderWithDetails): IOrderWithDetails {
+    const order: IOrderWithDetails = {
       id: raw.order.id,
       table: raw.order.table,
       status: raw.order.status,
