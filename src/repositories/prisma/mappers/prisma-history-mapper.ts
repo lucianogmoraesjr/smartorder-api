@@ -1,39 +1,33 @@
-import {
-  History as PrismaHistory,
-  Order as PrismaOrder,
-  Product as PrismaProduct,
-} from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 import { IOrder } from '@/entities/order';
 
-type PrismaArchivedOrder = PrismaHistory & {
-  order: PrismaOrder & {
-    products: {
-      id: string;
-      orderId: string;
-      productId: string;
-      quantity: number;
-      product: PrismaProduct & {
-        ingredients: ({
-          ingredient: {
-            id: string;
-            name: string;
-            emoji: string;
-          };
-        } & {
-          id: string;
-          productId: string;
-          ingredientId: string;
-        })[];
-        category: {
-          id: string;
-          name: string;
-          emoji: string;
-        } | null;
-      };
-    }[];
-  };
-};
+const archivedOrderDetails = Prisma.validator<Prisma.HistoryDefaultArgs>()({
+  include: {
+    order: {
+      include: {
+        products: {
+          include: {
+            product: {
+              include: {
+                category: true,
+                ingredients: {
+                  include: {
+                    ingredient: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+});
+
+type PrismaArchivedOrder = Prisma.HistoryGetPayload<
+  typeof archivedOrderDetails
+>;
 
 export class PrismaArchivedOrderMapper {
   static toDomain(raw: PrismaArchivedOrder): IOrder {
