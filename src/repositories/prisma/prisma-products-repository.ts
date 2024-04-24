@@ -148,6 +148,9 @@ export class PrismaProductsRepository implements IProductsRepository {
         imagePath: data.imagePath,
         categoryId: data.categoryId,
         ingredients: {
+          deleteMany: {
+            productId: data.id,
+          },
           create: data.ingredients?.map(ingredient => ({
             ingredient: {
               connect: { id: ingredient.ingredientId },
