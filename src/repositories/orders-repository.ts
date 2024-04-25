@@ -13,5 +13,6 @@ export interface IOrdersRepository {
   create(data: ICreateOrderDTO): Promise<Order>;
   updateStatus(data: IUpdateStatusRequest): Promise<void>;
   markAsArchived(id: string): Promise<void>;
+  markManyAsArchived(ids: string[]): Promise<void>;
   delete(id: string): Promise<void>;
 }

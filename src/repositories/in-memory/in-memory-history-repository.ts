@@ -18,6 +18,17 @@ export class InMemoryHistoryRepository implements IHistoryRepository {
     this.history.push(archive);
   }
 
+  async createManyArchive(orderIds: string[]): Promise<void> {
+    for (const orderId of orderIds) {
+      const archive: History = {
+        id: randomUUID(),
+        orderId,
+      };
+
+      this.history.push(archive);
+    }
+  }
+
   async listArchived(): Promise<IOrder[] | null> {
     const archivedOrders = this.history;
 

@@ -58,6 +58,14 @@ export class InMemoryOrdersRepository implements IOrdersRepository {
     this.orders[orderIndex].archivedAt = new Date();
   }
 
+  async markManyAsArchived(ids: string[]): Promise<void> {
+    for (const id of ids) {
+      const orderIndex = this.orders.findIndex(order => order.id === id);
+
+      this.orders[orderIndex].archivedAt = new Date();
+    }
+  }
+
   async delete(id: string): Promise<void> {
     const orderIndex = this.orders.findIndex(order => order.id === id);
 
