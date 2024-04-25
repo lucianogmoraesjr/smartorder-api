@@ -89,6 +89,19 @@ export class PrismaOrdersRepository implements IOrdersRepository {
     });
   }
 
+  async markManyAsArchived(ids: string[]): Promise<void> {
+    await prisma.order.updateMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+      data: {
+        archivedAt: new Date(),
+      },
+    });
+  }
+
   async delete(id: string): Promise<void> {
     await prisma.order.delete({
       where: {

@@ -14,6 +14,14 @@ export class PrismaHistoryRepository implements IHistoryRepository {
     });
   }
 
+  async createManyArchive(orderIds: string[]): Promise<void> {
+    await prisma.history.createMany({
+      data: orderIds.map(orderId => ({
+        orderId,
+      })),
+    });
+  }
+
   async listArchived(): Promise<IOrderWithDetails[] | null> {
     const archivedOrders = await prisma.history.findMany({
       include: {
