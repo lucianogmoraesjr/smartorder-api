@@ -33,6 +33,13 @@ export class PrismaOrdersRepository implements IOrdersRepository {
       where: {
         id,
       },
+      include: {
+        products: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
 
     if (!order) {
