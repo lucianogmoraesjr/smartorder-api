@@ -50,6 +50,14 @@ Here're some of the project's best features:
 
 Para iniciar a aplicação localmente é necessário ter [Node](https://nodejs.org), [pnpm](https://pnpm.io) e [Docker](https://docker.com) previamente instalados.
 
+### Instalando as dependências
+
+Para instalar as dependências do projeto, rode o comando:
+
+```bash
+$ pnpm install
+```
+
 ### Docker Compose
 
 A aplicação precisa de um banco de dados [Postgres](https://postgresql.org), com o arquivo `docker-compose.yml` o processo de criação do container é automatizado, basta rodar o comando:
